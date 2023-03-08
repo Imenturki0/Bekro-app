@@ -78,7 +78,7 @@ class _AgreementScreenState extends State<AgreementScreen> {
                           .createUserWithEmailAndPassword(
                           email: email, password: password);
                       if(newUser != null){
-                        Navigator.pushNamed(context, ChatScreen.id);
+                        Navigator.pushNamed(context, MainScreen.id);
                       }
                       setState(() {
                         showSpinner = false;
