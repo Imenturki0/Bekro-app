@@ -32,10 +32,8 @@ class map extends StatelessWidget {
         nonRotatedChildren: [],
         children: [
           TileLayer(
-            urlTemplate:
-            "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-            userAgentPackageName:
-            'dev.fleaflet.flutter_map.example',
+            urlTemplate: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+            userAgentPackageName: 'dev.fleaflet.flutter_map.example',
           ),
           MarkerLayer(
             markers: [
@@ -44,7 +42,11 @@ class map extends StatelessWidget {
                 width: 80,
                 height: 80,
                 builder: (context) => Container(
-                  child: Icon(Icons.location_on,size:45,color: Colors.red,),
+                  child: Icon(
+                    Icons.location_on,
+                    size: 45,
+                    color: Colors.red,
+                  ),
                 ),
               ),
             ],

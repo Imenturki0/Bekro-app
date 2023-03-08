@@ -15,10 +15,12 @@ import '../screens/talk_to_us.dart';
 import 'components/whirl_count.dart';
 
 void main() async {
-  runApp(FlashChat());
+  runApp(const BekronApp());
 }
 
-class FlashChat extends StatelessWidget {
+class BekronApp extends StatelessWidget {
+  const BekronApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -31,16 +33,16 @@ class FlashChat extends StatelessWidget {
       ),
       routes: {
         MainScreen.id: (context) => MainScreen(),
-        LoginScreen.id: (context) => LoginScreen(),
-        RegistrationScreen.id: (context) => RegistrationScreen(),
-        ForgotPassword.id: (context) => ForgotPassword(),
+        LoginScreen.id: (context) => const LoginScreen(),
+        RegistrationScreen.id: (context) => const RegistrationScreen(),
+        ForgotPassword.id: (context) => const ForgotPassword(),
         UserProfile.id: (context) => const UserProfile(),
         UserScan.id: (context) => UserScan(),
-        WhirlCount.id: (context) => WhirlCount(),
-        AdminControlPanel.id: (context) => AdminControlPanel(),
+        WhirlCount.id: (context) => const WhirlCount(),
+        AdminControlPanel.id: (context) => const AdminControlPanel(),
         LaunchScreen.id: (context) => const LaunchScreen(),
         TalkToUs.id: (context) => TalkToUs(),
-        AdminScanQr.id: (context) => AdminScanQr(),
+        AdminScanQr.id: (context) => const AdminScanQr(),
       },
     );
   }

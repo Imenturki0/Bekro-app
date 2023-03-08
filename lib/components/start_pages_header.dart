@@ -11,10 +11,10 @@ class StartPagesHeader extends StatelessWidget {
       width: sizeBoxWidth,
       child: Container(
         width: double.infinity,
-        margin: EdgeInsets.fromLTRB(0.0, 40.0, 0.0, 15.0),
+        margin: const EdgeInsets.fromLTRB(0.0, 40.0, 0.0, 15.0),
         child: Text(
-          '$mainText',
-          style: TextStyle(
+          mainText,
+          style: const TextStyle(
             fontSize: 15.0,
             color: Colors.black,
             fontWeight: FontWeight.bold,

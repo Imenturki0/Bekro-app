@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-const AgreementText= Text(
-    style:TextStyle(
+const AgreementText = Text(
+    style: TextStyle(
       fontSize: 12.0,
       fontWeight: FontWeight.bold,
     ),
@@ -36,5 +36,4 @@ D: Should a court order for disclosure of confidential information be received b
 F: Termination of the relationship between [Company name] and [Contact name] does not relieve [Contact name] and associates of their obligations outlined in this agreement, including the return of all records.
 
 G: This agreement shall be governed under the jurisdiction of the state of [State name]
-    '''
-);
+    ''');
