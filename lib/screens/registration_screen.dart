@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:regexed_validator/regexed_validator.dart';
 import '../components/rounded_button.dart';
 import '../components/hero_logo.dart';
 import '../components/start_pages_header.dart';
 import '../screens/login_screen.dart';
 import '../screens/agreement.dart';
 import '../components/form_input.dart';
-import 'package:regexed_validator/regexed_validator.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static String id = 'register_screen';
@@ -45,7 +45,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         width: double.infinity,
         height: double.infinity,
         alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 10.0),
+        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 10.0),
         child: Form(
           key: _formKey,
           child: SingleChildScrollView(
@@ -102,7 +102,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       confirmPassword = value;
                     },
                   ),
-                  SizedBox(height: 3.0),
+                  const SizedBox(height: 3.0),
                   RoundedButton(
                     borderRadius: 15.0,
                     textBtn: 'SIGN UP',
@@ -120,7 +120,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       }
                     },
                   ),
-                  SizedBox(height: 10.0),
+                  const SizedBox(height: 10.0),
                   GestureDetector(
                     onTap: () {
                       Navigator.pushNamed(context, LoginScreen.id);

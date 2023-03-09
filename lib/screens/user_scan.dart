@@ -7,8 +7,8 @@ class UserScan extends StatelessWidget {
   static String id = 'user_scan_screen';
 
   String data = 'abdcdr';
-  // const UserScan({Key? key}) : super(key: key);
 
+  UserScan({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +28,7 @@ class UserScan extends StatelessWidget {
               color: Colors.black87,
               height: 250,
               width: 250,
-              margin: EdgeInsets.only(top: 40),
+              margin: const EdgeInsets.only(top: 40),
             )),
             Expanded(
               child: Row(
@@ -36,11 +36,16 @@ class UserScan extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
                   TextCount(
-                      titleResult: '3', imagePath: 'images/paper-cup.png'),
+                    titleResult: '3',
+                    imagePath: 'images/paper-cup.png',
+                  ),
                   SizedBox(
                     width: 32,
                   ),
-                  TextCount(titleResult: '45', imagePath: 'images/star.png'),
+                  TextCount(
+                    titleResult: '45',
+                    imagePath: 'images/star.png',
+                  ),
                 ],
               ),
             )
@@ -54,7 +59,8 @@ class UserScan extends StatelessWidget {
 class TextCount extends StatelessWidget {
   final String titleResult;
   final String imagePath;
-  const TextCount({required this.titleResult, required this.imagePath});
+  const TextCount(
+      {super.key, required this.titleResult, required this.imagePath});
 
   @override
   Widget build(BuildContext context) {

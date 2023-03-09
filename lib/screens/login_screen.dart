@@ -45,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
           width: double.infinity,
           height: double.infinity,
           alignment: Alignment.center,
-          padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 10.0),
+          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 10.0),
           child: Form(
             key: _formKey,
             child: SingleChildScrollView(
@@ -78,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         password = value;
                       },
                     ),
-                    SizedBox(height: 3.0),
+                    const SizedBox(height: 3.0),
                     RoundedButton(
                       borderRadius: 15.0,
                       textBtn: 'LogIn',
@@ -112,24 +112,24 @@ class _LoginScreenState extends State<LoginScreen> {
                         }
                       },
                     ),
-                    SizedBox(height: 10.0),
+                    const SizedBox(height: 10.0),
                     GestureDetector(
                       onTap: () {
                         Navigator.pushNamed(context, ForgotPassword.id);
                       },
-                      child: Text(
+                      child: const Text(
                         'Forgot Password?',
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 13.0),
                       ),
                     ),
-                    SizedBox(height: 7.0),
+                    const SizedBox(height: 7.0),
                     GestureDetector(
                       onTap: () {
                         Navigator.pushNamed(context, RegistrationScreen.id);
                       },
                       child: RichText(
-                        text: TextSpan(
+                        text: const TextSpan(
                           children: <TextSpan>[
                             TextSpan(text: 'Don\'t have an account? '),
                             TextSpan(

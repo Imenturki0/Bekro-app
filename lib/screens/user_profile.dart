@@ -114,7 +114,8 @@ class TextRow extends StatelessWidget {
   final String titleResult;
   final String imagePath;
   const TextRow(
-      {required this.title,
+      {super.key,
+      required this.title,
       required this.titleResult,
       required this.imagePath});
 
@@ -127,11 +128,11 @@ class TextRow extends StatelessWidget {
             title,
             style: kUserProfileText,
           ),
-          SizedBox(
+          const SizedBox(
             width: 6,
           ),
           Text(titleResult, style: kUserProfileText),
-          SizedBox(
+          const SizedBox(
             width: 6,
           ),
           Image.asset(
@@ -184,7 +185,7 @@ dynamic _showFullModal(context, String data) {
                 color: Colors.black87,
                 height: 250,
                 width: 250,
-                margin: EdgeInsets.only(top: 40),
+                margin: const EdgeInsets.only(top: 40),
               )),
               Expanded(
                 child: Row(

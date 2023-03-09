@@ -8,8 +8,9 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 class AgreementScreen extends StatefulWidget {
   //static String id = 'agreement';
 
-  AgreementScreen(
-      {required this.name,
+  const AgreementScreen(
+      {super.key,
+      required this.name,
       required this.email,
       required this.phone,
       required this.password});
@@ -32,7 +33,7 @@ class _AgreementScreenState extends State<AgreementScreen> {
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 30.0),
+          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 30.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -41,7 +42,7 @@ class _AgreementScreenState extends State<AgreementScreen> {
                 flex: 1,
                 child: HeroLogo(imgHeight: 90.0),
               ),
-              SizedBox(height: 10.0),
+              const SizedBox(height: 10.0),
               Expanded(
                 flex: 9,
                 child: Stack(
@@ -50,13 +51,13 @@ class _AgreementScreenState extends State<AgreementScreen> {
                     Container(
                       width: double.infinity,
                       height: double.infinity,
-                      margin: EdgeInsets.fromLTRB(6, 6, 6, 20),
-                      padding: EdgeInsets.fromLTRB(16, 26, 0, 30),
+                      margin: const EdgeInsets.fromLTRB(6, 6, 6, 20),
+                      padding: const EdgeInsets.fromLTRB(16, 26, 0, 30),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
-                        color: Color(0xFFEEEFEF),
+                        color: const Color(0xFFEEEFEF),
                       ),
-                      child: Expanded(
+                      child: const Expanded(
                         child: RawScrollbar(
                           thumbColor: Color(0xFF414042),
                           child: SingleChildScrollView(

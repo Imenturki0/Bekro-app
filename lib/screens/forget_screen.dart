@@ -38,7 +38,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           width: double.infinity,
           height: double.infinity,
           alignment: Alignment.center,
-          padding: EdgeInsets.symmetric(horizontal: 40.0),
+          padding: const EdgeInsets.symmetric(horizontal: 40.0),
           child: Form(
             key: _formKey,
             child: SingleChildScrollView(
@@ -61,7 +61,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         emailorphone = value;
                       },
                     ),
-                    SizedBox(height: 3.0),
+                    const SizedBox(height: 3.0),
                     RoundedButton(
                       borderRadius: 15.0,
                       textBtn: 'SEND RESET LINK',

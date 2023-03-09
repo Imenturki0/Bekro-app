@@ -41,7 +41,7 @@ class _TalkToUsState extends State<TalkToUs> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       HeroLogo(imgHeight: 70.0),
-                      SizedBox(
+                      const SizedBox(
                         height: 15,
                       ),
                       Row(
@@ -87,13 +87,13 @@ class _TalkToUsState extends State<TalkToUs> {
                                     }
                                   },
                                   style: ElevatedButton.styleFrom(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 20),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20),
                                       backgroundColor: mainAppColor),
                                   child: const Text('Google maps'),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 20,
                               ),
                               ElevatedButton(
@@ -107,8 +107,8 @@ class _TalkToUsState extends State<TalkToUs> {
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 20),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20),
                                     backgroundColor: mainAppColor),
                                 child: const Text('Yandex maps'),
                               )
@@ -125,7 +125,8 @@ class _TalkToUsState extends State<TalkToUs> {
                     ],
                   ),
                 ),
-                BottomNav(Text("CALL"), Text("WEBSITE"), Icon(Icons.arrow_back))
+                BottomNav(const Text("CALL"), const Text("WEBSITE"),
+                    const Icon(Icons.arrow_back))
               ],
             ),
           ),
@@ -138,12 +139,12 @@ class _TalkToUsState extends State<TalkToUs> {
 class InputField extends StatelessWidget {
   final String text;
   final int maxlines;
-  InputField(this.text, this.maxlines);
+  const InputField(this.text, this.maxlines, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextField(
         decoration: InputDecoration(
           border: const OutlineInputBorder(
