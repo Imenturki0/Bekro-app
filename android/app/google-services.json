@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "331080468510",
+    "project_id": "bekron-app",
+    "storage_bucket": "bekron-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:331080468510:android:a90ae9da2d94b5146cc60f",
+        "android_client_info": {
+          "package_name": "com.example.bekron_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "331080468510-i04ua1upqhig3kb3tf61a8c8sdp0ali5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnIxHkqTJysHlOSYTeBRwRYpxwiZJLxBM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "331080468510-i04ua1upqhig3kb3tf61a8c8sdp0ali5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
