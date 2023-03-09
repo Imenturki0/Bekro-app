@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../screens/main_screen.dart';
 import 'dart:math';
+import '../screens/check_auth_screen.dart';
 
 class LaunchScreen extends StatefulWidget {
   static String id = 'launch_screen';
@@ -21,7 +22,7 @@ class _LaunchScreenState extends State<LaunchScreen> {
   _navigateToLogin() async {
     await Future.delayed(const Duration(milliseconds: 5000), () {});
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => MainScreen()));
+        context, MaterialPageRoute(builder: (context) => CheckAuth()));
   }
 
   Widget build(BuildContext context) {

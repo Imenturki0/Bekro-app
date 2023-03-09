@@ -1,4 +1,4 @@
-//import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../constants.dart';
 import '../components/rounded_button.dart';
@@ -7,8 +7,10 @@ import '../components/start_pages_header.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../screens/forget_screen.dart';
 import '../screens/registration_screen.dart';
+import '../screens/user_profile.dart';
 import '../components/form_input.dart';
 import 'package:regexed_validator/regexed_validator.dart';
+import 'package:alert/alert.dart';
 
 class LoginScreen extends StatefulWidget {
   static String id = 'login_screen';
@@ -20,7 +22,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   //final _auth = FirebaseAuth.instance ;
-  late String emailorphone;
+  late String email;
   late String password;
   bool showSpinner = false;
 
@@ -28,10 +30,8 @@ class _LoginScreenState extends State<LoginScreen> {
   String? validateInputs(String? value, String inputType) {
     if (value == null || value.isEmpty) {
       return "* Required";
-    } else if (inputType == 'mailphone' &&
-        !validator.email(value) &&
-        !validator.phone(value)) {
-      return 'Please enter a valid email or phone';
+    } else if (inputType == 'email' && !validator.email(value)) {
+      return 'Please enter a valid email';
     }
     return null;
   }
@@ -62,11 +62,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     StartPagesHeader(mainText: 'LOGIN INTO YOUR ACCOUNT'),
                     FormInput(
-                      hintText: 'Email or Phone Number',
+                      hintText: 'Email',
                       validatorFunction: (value) =>
-                          validateInputs(value, 'mailphone'),
+                          validateInputs(value, 'email'),
                       onChangedFunction: (value) {
-                        emailorphone = value;
+                        email = value;
                       },
                     ),
                     FormInput(
@@ -84,15 +84,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       textBtn: 'LogIn',
                       onPress: () async {
                         if (_formKey.currentState!.validate()) {
-                          //Implement login functionality.
-                          /*setState(() {showSpinner = true;});
-                        try{
-                          final isLoggedinUser = await _auth.signInWithEmailAndPassword(email: email, password: password);
-                          if(isLoggedinUser != null){
-                            Navigator.pushNamed(context, Screen.id);
+                          setState(() {showSpinner = true;});
+                          try{
+                            UserCredential result=await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+                            if(result.user != null){
+                              setState(() {showSpinner = false;});
+                              Navigator.pushNamedAndRemoveUntil(context, UserProfile.id,ModalRoute.withName('$LoginScreen.id'));
+                            }
+                          }catch(e){
+                            setState(() {showSpinner = false;});
+                            Alert(message: 'There is no user record corresponding to this identifier').show();
                           }
-                          setState(() {showSpinner = false;});
-                        }catch(e){print(e);}*/
                         }
                       },
                     ),

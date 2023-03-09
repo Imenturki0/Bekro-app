@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>331080468510-8hd3oktr3abj427srte9c80442s7iq30.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.331080468510-8hd3oktr3abj427srte9c80442s7iq30</string>
+	<key>API_KEY</key>
+	<string>AIzaSyARX1ps0nOuemgDEEngcCs5Ev0giKYu0qM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>331080468510</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.bekronApp</string>
+	<key>PROJECT_ID</key>
+	<string>bekron-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>bekron-app.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:331080468510:ios:f73ef92e594698c96cc60f</string>
+	<key>DATABASE_URL</key>
+	<string>https://bekron-app-default-rtdb.europe-west1.firebasedatabase.app</string>
+</dict>
+</plist>
