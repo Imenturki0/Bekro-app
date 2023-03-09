@@ -40,7 +40,7 @@
   <script src="flutter.js" defer></script>
 </head>
 <body>
-  <script>
+<script>
     window.addEventListener('load', function(ev) {
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({
@@ -54,6 +54,30 @@
         }
       });
     });
+  </script>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyB2AMoghTUwBswTWyWMtwo7QiZZrBPQ5D0",
+    authDomain: "bekron-app.firebaseapp.com",
+    databaseURL: "https://bekron-app-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "bekron-app",
+    storageBucket: "bekron-app.appspot.com",
+    messagingSenderId: "331080468510",
+    appId: "1:331080468510:web:ba9af517e9f15fc36cc60f",
+    measurementId: "G-LGETFHF4E3"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
   </script>
 </body>
 </html>

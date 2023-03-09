@@ -44,6 +44,7 @@ dependencies:
   regexed_validator: ^2.0.0+1
   barcode_widget: ^2.0.3
   http: ^0.13.5
+  alert: ^2.0.1
 
 dev_dependencies:
   flutter_test:
