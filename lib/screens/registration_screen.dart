@@ -30,7 +30,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       return 'Please enter a valid email';
     } else if (inputType == 'phone' && !validator.phone(value)) {
       return 'Please enter a valid phone';
-    }  else if (inputType == 'password' && value.length<6) {
+    } else if (inputType == 'password' && value.length < 6) {
       return 'Password must be at least 6 characters';
     } else if (inputType == 'confirmPassword' && password != confirmPassword) {
       return "Passwords don't match";
@@ -110,13 +110,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       if (_formKey.currentState!.validate()) {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                              return AgreementScreen(
-                                name: name,
-                                email: email,
-                                phone: phone,
-                                password: password,
-                              );
-                            }));
+                          return AgreementScreen(
+                            name: name,
+                            email: email,
+                            phone: phone,
+                            password: password,
+                          );
+                        }));
                       }
                     },
                   ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../screens/main_screen.dart';
 import 'dart:math';
 import '../screens/check_auth_screen.dart';
 

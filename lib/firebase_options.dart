@@ -49,7 +49,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '331080468510',
     projectId: 'bekron-app',
     authDomain: 'bekron-app.firebaseapp.com',
-    databaseURL: 'https://bekron-app-default-rtdb.europe-west1.firebasedatabase.app',
+    databaseURL:
+        'https://bekron-app-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'bekron-app.appspot.com',
     measurementId: 'G-LGETFHF4E3',
   );
@@ -59,7 +60,8 @@ class DefaultFirebaseOptions {
     appId: '1:331080468510:android:bd2ed076aaf6101c6cc60f',
     messagingSenderId: '331080468510',
     projectId: 'bekron-app',
-    databaseURL: 'https://bekron-app-default-rtdb.europe-west1.firebasedatabase.app',
+    databaseURL:
+        'https://bekron-app-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'bekron-app.appspot.com',
   );
 
@@ -68,9 +70,11 @@ class DefaultFirebaseOptions {
     appId: '1:331080468510:ios:f73ef92e594698c96cc60f',
     messagingSenderId: '331080468510',
     projectId: 'bekron-app',
-    databaseURL: 'https://bekron-app-default-rtdb.europe-west1.firebasedatabase.app',
+    databaseURL:
+        'https://bekron-app-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'bekron-app.appspot.com',
-    iosClientId: '331080468510-8hd3oktr3abj427srte9c80442s7iq30.apps.googleusercontent.com',
+    iosClientId:
+        '331080468510-8hd3oktr3abj427srte9c80442s7iq30.apps.googleusercontent.com',
     iosBundleId: 'com.example.bekronApp',
   );
 
@@ -79,9 +83,11 @@ class DefaultFirebaseOptions {
     appId: '1:331080468510:ios:f73ef92e594698c96cc60f',
     messagingSenderId: '331080468510',
     projectId: 'bekron-app',
-    databaseURL: 'https://bekron-app-default-rtdb.europe-west1.firebasedatabase.app',
+    databaseURL:
+        'https://bekron-app-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'bekron-app.appspot.com',
-    iosClientId: '331080468510-8hd3oktr3abj427srte9c80442s7iq30.apps.googleusercontent.com',
+    iosClientId:
+        '331080468510-8hd3oktr3abj427srte9c80442s7iq30.apps.googleusercontent.com',
     iosBundleId: 'com.example.bekronApp',
   );
 }

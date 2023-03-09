@@ -84,16 +84,30 @@ class _LoginScreenState extends State<LoginScreen> {
                       textBtn: 'LogIn',
                       onPress: () async {
                         if (_formKey.currentState!.validate()) {
-                          setState(() {showSpinner = true;});
-                          try{
-                            UserCredential result=await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
-                            if(result.user != null){
-                              setState(() {showSpinner = false;});
-                              Navigator.pushNamedAndRemoveUntil(context, UserProfile.id,ModalRoute.withName('$LoginScreen.id'));
+                          setState(() {
+                            showSpinner = true;
+                          });
+                          try {
+                            UserCredential result = await FirebaseAuth.instance
+                                .signInWithEmailAndPassword(
+                                    email: email, password: password);
+                            if (result.user != null) {
+                              setState(() {
+                                showSpinner = false;
+                              });
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context,
+                                  UserProfile.id,
+                                  ModalRoute.withName('$LoginScreen.id'));
                             }
-                          }catch(e){
-                            setState(() {showSpinner = false;});
-                            Alert(message: 'There is no user record corresponding to this identifier').show();
+                          } catch (e) {
+                            setState(() {
+                              showSpinner = false;
+                            });
+                            Alert(
+                                    message:
+                                        'There is no user record corresponding to this identifier')
+                                .show();
                           }
                         }
                       },

@@ -11,8 +11,6 @@ import '../constants.dart';
 import '../screens/talk_to_us.dart';
 import '../components/whirl_count.dart';
 
-import 'dart:async';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -24,22 +22,6 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const BekronApp());
-// final _firestore = FirebaseFirestore.instance;
-// _firestore.collection('Users').add({
-// 'email': 'test@gmail.com',
-// 'phone_number': '9999',
-// 'free_cups_count': 0,
-// 'free_whirls_count': 0,
-// 'full_name': "lobana",
-// 'is_admin': true,
-// 'is_client': false,
-// 'password': "111111",
-// 'qr_code': "test",
-// 'stars_count': 7,
-// 'used_cups_count': 0,
-// 'used_whirls_count': 0,
-// 'whirls_count': 27
-// });
 }
 
 class BekronApp extends StatelessWidget {
@@ -53,7 +35,7 @@ class BekronApp extends StatelessWidget {
       home: const LaunchScreen(),
       theme: ThemeData(
         textSelectionTheme:
-        const TextSelectionThemeData(cursorColor: mainAppColor),
+            const TextSelectionThemeData(cursorColor: mainAppColor),
       ),
       routes: {
         MainScreen.id: (context) => MainScreen(),
