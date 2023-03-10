@@ -104,10 +104,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             setState(() {
                               showSpinner = false;
                             });
-                            Alert(
+                           /* Alert(
                                     message:
                                         'There is no user record corresponding to this identifier')
-                                .show();
+                                .show();*/
                           }
                         }
                       },
