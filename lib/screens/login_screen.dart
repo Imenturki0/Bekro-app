@@ -106,7 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               context: context,
                               type: CoolAlertType.error,
                               title: 'Failed',
-                              text: 'There is no user record corresponding to this identifier',
+                              text: 'You entered wrong information',
                               loopAnimation: false,
                             );
                           }
