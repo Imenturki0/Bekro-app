@@ -32,7 +32,7 @@ class _AgreementScreenState extends State<AgreementScreen> {
     return Scaffold(
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
-        child: Padding(
+        child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 30.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -57,14 +57,18 @@ class _AgreementScreenState extends State<AgreementScreen> {
                         borderRadius: BorderRadius.circular(15),
                         color: const Color(0xFFEEEFEF),
                       ),
-                      child: const Expanded(
-                        child: RawScrollbar(
-                          thumbColor: Color(0xFF414042),
-                          child: SingleChildScrollView(
-                              padding: EdgeInsets.only(right: 22),
-                              scrollDirection: Axis.vertical,
-                              child: AgreementText),
-                        ),
+                      child: Column(
+                        children: <Widget>[
+                          const Expanded(
+                            child: RawScrollbar(
+                              thumbColor: Color(0xFF414042),
+                              child: SingleChildScrollView(
+                                  padding: EdgeInsets.only(right: 22),
+                                  scrollDirection: Axis.vertical,
+                                  child: AgreementText),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     RoundedButton(
@@ -72,24 +76,24 @@ class _AgreementScreenState extends State<AgreementScreen> {
                       textBtn: 'I have read and I approve',
                       onPress: () async {
                         /*setState(() {
-                      showSpinner = true;
-                    });
-                    try {
-                      final newUser = await _auth
-                          .createUserWithEmailAndPassword(
-                          email: email, password: password);
-                      if(newUser != null){
-                        Navigator.pushNamed(context, MainScreen.id);
-                      }
-                      setState(() {
-                        showSpinner = false;
-                      });
-                    } catch(e){print(e);}*/
+                  showSpinner = true;
+                });
+                try {
+                  final newUser = await _auth
+                      .createUserWithEmailAndPassword(
+                      email: email, password: password);
+                  if(newUser != null){
+                    Navigator.pushNamed(context, MainScreen.id);
+                  }
+                  setState(() {
+                    showSpinner = false;
+                  });
+                } catch(e){print(e);}*/
                       },
                     )
                   ],
                 ),
-              ),
+              )
             ],
           ),
         ),

@@ -10,7 +10,7 @@ import '../screens/registration_screen.dart';
 import '../screens/user_profile.dart';
 import '../components/form_input.dart';
 import 'package:regexed_validator/regexed_validator.dart';
-import 'package:alert/alert.dart';
+import 'package:cool_alert/cool_alert.dart';
 
 class LoginScreen extends StatefulWidget {
   static String id = 'login_screen';
@@ -101,13 +101,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ModalRoute.withName('$LoginScreen.id'));
                             }
                           } catch (e) {
-                            setState(() {
-                              showSpinner = false;
-                            });
-                           /* Alert(
-                                    message:
-                                        'There is no user record corresponding to this identifier')
-                                .show();*/
+                            setState(() {showSpinner = false;});
+                            CoolAlert.show(
+                              context: context,
+                              type: CoolAlertType.error,
+                              title: 'Failed',
+                              text: 'You entered wrong information',
+                              loopAnimation: false,
+                            );
                           }
                         }
                       },
