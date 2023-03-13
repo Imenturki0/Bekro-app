@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 import '../components/rounded_button.dart';
@@ -23,10 +25,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   late String confirmPassword;
 
   final _formKey = GlobalKey<FormState>();
+  final _auth = FirebaseAuth.instance ;
+  final _fireStore = FirebaseFirestore.instance ;
   String? validateInputs(String? value, String inputType) {
     if (value == null || value.isEmpty) {
       return "* Required";
-    } else if (inputType == 'email' && !validator.email(value)) {
+    } else
+      if (inputType == 'email' && !validator.email(value)) {
       return 'Please enter a valid email';
     } else if (inputType == 'phone' && !validator.phone(value)) {
       return 'Please enter a valid phone';
@@ -37,7 +42,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     }
     return null;
   }
+@override
+   void initState() {
+    // TODO: implement initState
+    super.initState();
 
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

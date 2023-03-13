@@ -1,21 +1,47 @@
+import 'package:bekron_app/models/user_detail.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import '../components/whirl_count.dart';
 import 'package:flutter/material.dart';
 import '../components/hero_logo.dart';
 import 'package:barcode_widget/barcode_widget.dart';
 import '../components/rounded_button.dart';
 import '../constants.dart';
+import '../models/helpers.dart';
 
 class UserProfile extends StatefulWidget {
   static String id = 'user_profile_screen';
-  const UserProfile({Key? key}) : super(key: key);
+  final String userDocId;
+  UserProfile({required this.userDocId});
+
   @override
   State<UserProfile> createState() => _UserProfileState();
 }
 
 class _UserProfileState extends State<UserProfile> {
-  String data = 'abdcdr';
+  FirebaseAuth auth = FirebaseAuth.instance;
+  String qrData = '';
+  late Map<String, dynamic> userData;
+  late String fullName;
+  late String userIdRef = '';
+
+  @override
+  void initState () {
+    super.initState();
+    userIdRef = widget.userDocId;
+    getUserData(userIdRef).then((data) {
+      setState(() {
+        userData = data;
+        qrData = userData['qr_code'];
+      });
+    }).catchError((error) => print(error));
+
+
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.all(20),
@@ -32,8 +58,8 @@ class _UserProfileState extends State<UserProfile> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('Hi,Ahmad',
-                    style: TextStyle(
+                Text(' ${userData['email'] ?? 'nod'} ',
+                    style: const TextStyle(
                       color: Colors.black,
                       decoration: TextDecoration.none,
                       fontWeight: FontWeight.bold,
@@ -61,15 +87,14 @@ class _UserProfileState extends State<UserProfile> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: const [
+                  children:  [
                     TextRow(
-                      title: "Reward drink",
-                      titleResult: '3',
-                      imagePath: 'images/paper-cup.png',
+                      title: "Reward drink", imagePath: 'images/paper-cup.png',
+                      titleResult: '${userData['used_cups_count'] ?? '0'} ',
                     ),
                     TextRow(
                       title: "Star balance",
-                      titleResult: '4',
+                      titleResult: ' ${userData['stars_count'] ?? '0'} ',
                       imagePath: 'images/star.png',
                     ),
                   ],
@@ -82,20 +107,17 @@ class _UserProfileState extends State<UserProfile> {
                 borderRadius: 10.0,
                 textBtn: 'SCAN QR',
                 onPress: () {
-                  _showFullModal(context, data);
+                  _showFullModal(context, qrData);
                 },
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+             Padding(
+              padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
               child: TextRow(
                   title: "Whirl",
-                  titleResult: '0',
-                  imagePath: 'images/paper-cup.png'),
+                  titleResult: '${userData['whirls_count'] ?? '0'} ',
+                  imagePath: 'images/coffee-bag.png'),
             ),
-            // WhirlIconWidget(
-            //   whirlCount: 10,
-            // ) ,
             const Expanded(
               child: SizedBox(
                 width: double.infinity,

@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'firebase_options.dart';
+import 'models/user_detail.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +24,15 @@ void main() async {
   );
   runApp(const BekronApp());
 }
-
+UserDetail user = UserDetail( email:'',
+    is_admin:false,
+    free_whirls_count:0,
+    full_name:  '',
+    qr_code:'0',
+    stars_count:0,
+    used_cups_count:0,
+    whirls_count:0,
+    uid: '') ;
 class BekronApp extends StatelessWidget {
   const BekronApp({super.key});
 
@@ -42,7 +51,7 @@ class BekronApp extends StatelessWidget {
         LoginScreen.id: (context) => const LoginScreen(),
         RegistrationScreen.id: (context) => const RegistrationScreen(),
         ForgotPassword.id: (context) => const ForgotPassword(),
-        UserProfile.id: (context) => const UserProfile(),
+        UserProfile.id: (context) =>  UserProfile(userDocId: ''),
         UserScan.id: (context) => UserScan(),
         WhirlCount.id: (context) => const WhirlCount(),
         AdminControlPanel.id: (context) => const AdminControlPanel(),
