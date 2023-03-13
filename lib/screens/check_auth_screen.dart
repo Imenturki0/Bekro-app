@@ -1,4 +1,3 @@
-import 'package:bekron_app/models/user_detail.dart';
 import 'package:bekron_app/screens/registration_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,7 +11,6 @@ class CheckAuth extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     User? firebaseUser = FirebaseAuth.instance.currentUser;
-    final UserDetail user;
     Widget firstWidget;
     if (firebaseUser != null) {
 
