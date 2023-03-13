@@ -1,5 +1,3 @@
-//import 'package:firebase_auth/firebase_auth.dart';
-import 'package:bekron_app/models/user_detail.dart';
 import 'package:bekron_app/screens/user_profile.dart';
 import 'package:flutter/material.dart';
 import '../components/rounded_button.dart';
@@ -77,20 +75,27 @@ class _AgreementScreenState extends State<AgreementScreen> {
                         borderRadius: BorderRadius.circular(15),
                         color: const Color(0xFFEEEFEF),
                       ),
-                      child: const Expanded(
-                        child: RawScrollbar(
-                          thumbColor: Color(0xFF414042),
-                          child: SingleChildScrollView(
-                              padding: EdgeInsets.only(right: 22),
-                              scrollDirection: Axis.vertical,
-                              child: AgreementText),
-                        ),
+                      child: Column(
+                        children: const <Widget>[
+                          Expanded(
+                            child: RawScrollbar(
+                              thumbColor: Color(0xFF414042),
+                              child: SingleChildScrollView(
+                                  padding: EdgeInsets.only(right: 22),
+                                  scrollDirection: Axis.vertical,
+                                  child: AgreementText),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     RoundedButton(
                       borderRadius: 15.0,
                       textBtn: 'I have read and I approve',
                       onPress: () async {
+                        setState(() {
+                        showSpinner = true;
+                        });
                        try {
                           UserCredential user = await FirebaseAuth.instance
                               .createUserWithEmailAndPassword(
@@ -102,7 +107,9 @@ class _AgreementScreenState extends State<AgreementScreen> {
 
                           final userDocId = await userSetup(widget.name);
                           _openMyPage(userDocId );
-
+                        setState(() {
+                        showSpinner = false;
+                        });
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'weak-password') {
                             print('The password provided is too weak.');
@@ -116,7 +123,7 @@ class _AgreementScreenState extends State<AgreementScreen> {
                     )
                   ],
                 ),
-              ),
+              )
             ],
           ),
         ),

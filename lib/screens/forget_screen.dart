@@ -1,4 +1,4 @@
-//import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../components/rounded_button.dart';
 import '../components/hero_logo.dart';
@@ -6,6 +6,8 @@ import '../components/start_pages_header.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../components/form_input.dart';
 import 'package:regexed_validator/regexed_validator.dart';
+// import 'package:cool_alert/cool_alert.dart';
+import '../screens/login_screen.dart';
 
 class ForgotPassword extends StatefulWidget {
   static String id = 'forgot_screen';
@@ -16,15 +18,15 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
-  late String emailorphone;
+  late String email;
   bool showSpinner = false;
 
   final _formKey = GlobalKey<FormState>();
   String? validateInputs(String? value) {
     if (value == null || value.isEmpty) {
       return "* Required";
-    } else if (!validator.email(value) && !validator.phone(value)) {
-      return 'Please enter a valid email or phone';
+    } else if (!validator.email(value)) {
+      return 'Please enter a valid email';
     }
     return null;
   }
@@ -55,10 +57,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     ),
                     StartPagesHeader(mainText: 'FORGOT YOUR PASSWORD?'),
                     FormInput(
-                      hintText: 'Email or Phone Number',
+                      hintText: 'Email',
                       validatorFunction: (value) => validateInputs(value),
                       onChangedFunction: (value) {
-                        emailorphone = value;
+                        email = value;
                       },
                     ),
                     const SizedBox(height: 3.0),
@@ -67,9 +69,44 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       textBtn: 'SEND RESET LINK',
                       onPress: () async {
                         if (_formKey.currentState!.validate()) {
-                          //
+                          setState(() {showSpinner = true;});
+                          try {
+                            await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+                            setState(() {showSpinner = false;});
+                            // CoolAlert.show(
+                            //   context: context,
+                            //   type: CoolAlertType.success,
+                            //   text: 'Password reset sent to your email',
+                            //   autoCloseDuration: const Duration(seconds: 2),
+                            // );
+                            await Future.delayed(const Duration(milliseconds: 3500), () {
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context,
+                                  LoginScreen.id,
+                                  ModalRoute.withName('$ForgotPassword.id'));
+                            });
+                          } catch (e) {
+                            setState(() {showSpinner = false;});
+                            // CoolAlert.show(
+                            //   context: context,
+                            //   type: CoolAlertType.error,
+                            //   title: 'Failed',
+                            //   text: 'There is no user record corresponding to this identifier',
+                            //   loopAnimation: false,
+                            // );
+                          }
                         }
                       },
+                    ),
+                    const SizedBox(height: 5.0),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, LoginScreen.id);
+                      },
+                      child: const Text(
+                        'Go to Log In page',
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0),
+                      ),
                     ),
                   ],
                 ),

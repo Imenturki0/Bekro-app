@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import '../components/rounded_button.dart';
 import '../components/text_row.dart';
 import '../constants.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AdminControlPanel extends StatefulWidget {
   static String id = 'admin_panel_screen';
@@ -14,11 +15,52 @@ class AdminControlPanel extends StatefulWidget {
 }
 
 class _AdminControlPanelState extends State<AdminControlPanel> {
+  late int used_cups_count;
+  late int stars_count;
+  int stars_in_view = 0;
+  int rewards_cup_in_view = 0;
+  void getData() async {
+    // DocumentSnapshot document = await FirebaseFirestore.instance.collection('users').document(uid).get();
+
+    await newCollection.doc('id').get().then((document) {
+      used_cups_count = document.data()!["used_cups_count"];
+      stars_count = document.data()!["stars_count"];
+    });
+    stars_in_view = stars_count - used_cups_count * 10;
+    rewards_cup_in_view = (stars_count / 10 - used_cups_count).toInt();
+    print(stars_in_view);
+    print(rewards_cup_in_view);
+    print("get data");
+  }
+
+  void addStar() async {
+//if(stars_in_view+1%10==0) {
+    await newCollection
+        .doc("id")
+        .update({
+      "stars_count": stars_count + 1,
+    })
+        .then((value) => {})
+        .catchError((error) => print(error));
+  }
+
+  void oneUse() async {
+    await newCollection
+        .doc("id")
+        .update({
+      "used_cups_count": used_cups_count + 1,
+    })
+        .then((value) => print("done"))
+        .catchError((error) => print(error));
+  }
+
+  final newCollection = FirebaseFirestore.instance.collection('Clients');
   String name = 'AHMET MADENOĞULLAR';
   String email = 'ahmet@gmail.com';
   @override
   void initState() {
     super.initState();
+    getData();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
@@ -70,7 +112,19 @@ class _AdminControlPanelState extends State<AdminControlPanel> {
                       RoundedButton(
                           borderRadius: 10,
                           textBtn: '1*',
-                          onPress: () {},
+                          onPress: () {
+                            getData();
+                            setState(() {
+                              stars_in_view =
+                                  (stars_count + 1) - used_cups_count * 10;
+                              rewards_cup_in_view =
+                                  ((stars_count + 1) / 10 - used_cups_count)
+                                      .toInt();
+                              print(rewards_cup_in_view);
+                              print(stars_in_view);
+                            });
+                            addStar();
+                          },
                           btnWidth: 100,
                           btnHeight: 50.0),
                       const SizedBox(
@@ -79,7 +133,21 @@ class _AdminControlPanelState extends State<AdminControlPanel> {
                       RoundedButton(
                           borderRadius: 10,
                           textBtn: '10*',
-                          onPress: () {},
+                          onPress: () {
+                            getData();
+                            oneUse();
+                            setState(() {
+                              setState(() {
+                                stars_in_view =
+                                    (stars_count -10) - used_cups_count * 10;
+                                rewards_cup_in_view =
+                                    ((stars_count -10) / 10 - used_cups_count)
+                                        .toInt();
+                                print(rewards_cup_in_view);
+                                print(stars_in_view);
+                              });
+                            });
+                          },
                           btnWidth: 100,
                           btnHeight: 50.0),
                     ],
@@ -95,10 +163,10 @@ class _AdminControlPanelState extends State<AdminControlPanel> {
                     ],
                   ),
                   Column(
-                    children: const [
+                    children: [
                       TextRow(
                         title: "Reward drink",
-                        titleResult: '3',
+                        titleResult: rewards_cup_in_view.toString(),
                         imagePath: 'images/paper-cup.png',
                       ),
                       SizedBox(
@@ -106,7 +174,7 @@ class _AdminControlPanelState extends State<AdminControlPanel> {
                       ),
                       TextRow(
                         title: "Star balance",
-                        titleResult: '4',
+                        titleResult: stars_in_view.toString(),
                         imagePath: 'images/star.png',
                       ),
                     ],
