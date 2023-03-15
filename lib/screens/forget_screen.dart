@@ -6,7 +6,7 @@ import '../components/start_pages_header.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../components/form_input.dart';
 import 'package:regexed_validator/regexed_validator.dart';
-import 'package:cool_alert/cool_alert.dart';
+// import 'package:cool_alert/cool_alert.dart';
 import '../screens/login_screen.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -73,12 +73,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           try {
                             await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
                             setState(() {showSpinner = false;});
-                            CoolAlert.show(
-                              context: context,
-                              type: CoolAlertType.success,
-                              text: 'Password reset sent to your email',
-                              autoCloseDuration: const Duration(seconds: 2),
-                            );
+                            // CoolAlert.show(
+                            //   context: context,
+                            //   type: CoolAlertType.success,
+                            //   text: 'Password reset sent to your email',
+                            //   autoCloseDuration: const Duration(seconds: 2),
+                            // );
                             await Future.delayed(const Duration(milliseconds: 3500), () {
                               Navigator.pushNamedAndRemoveUntil(
                                   context,
@@ -87,13 +87,13 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                             });
                           } catch (e) {
                             setState(() {showSpinner = false;});
-                            CoolAlert.show(
-                              context: context,
-                              type: CoolAlertType.error,
-                              title: 'Failed',
-                              text: 'There is no user record corresponding to this identifier',
-                              loopAnimation: false,
-                            );
+                            // CoolAlert.show(
+                            //   context: context,
+                            //   type: CoolAlertType.error,
+                            //   title: 'Failed',
+                            //   text: 'There is no user record corresponding to this identifier',
+                            //   loopAnimation: false,
+                            // );
                           }
                         }
                       },

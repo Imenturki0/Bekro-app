@@ -10,7 +10,7 @@ import '../screens/registration_screen.dart';
 import '../screens/user_profile.dart';
 import '../components/form_input.dart';
 import 'package:regexed_validator/regexed_validator.dart';
-import 'package:cool_alert/cool_alert.dart';
+// import 'package:cool_alert/cool_alert.dart';
 
 class LoginScreen extends StatefulWidget {
   static String id = 'login_screen';
@@ -102,13 +102,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             }
                           } catch (e) {
                             setState(() {showSpinner = false;});
-                            CoolAlert.show(
-                              context: context,
-                              type: CoolAlertType.error,
-                              title: 'Failed',
-                              text: 'You entered wrong information',
-                              loopAnimation: false,
-                            );
+                            // CoolAlert.show(
+                            //   context: context,
+                            //   type: CoolAlertType.error,
+                            //   title: 'Failed',
+                            //   text: 'You entered wrong information',
+                            //   loopAnimation: false,
+                            // );
                           }
                         }
                       },

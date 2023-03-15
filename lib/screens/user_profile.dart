@@ -2,6 +2,7 @@ import '../components/whirl_count.dart';
 import 'package:flutter/material.dart';
 import '../components/hero_logo.dart';
 import 'package:barcode_widget/barcode_widget.dart';
+import 'package:flutter/services.dart';
 import '../components/rounded_button.dart';
 import '../constants.dart';
 
@@ -15,94 +16,117 @@ class UserProfile extends StatefulWidget {
 class _UserProfileState extends State<UserProfile> {
   String data = 'abdcdr';
   @override
+  void initState() {
+    super.initState();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+  }
+
+  @override
+  dispose() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Center(child: HeroLogo(imgHeight: 70.0)),
-            const SizedBox(
-              height: 25,
+        child: SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxHeight: MediaQuery.of(context).size.height,
             ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
               children: [
-                const Text('Hi,Ahmad',
-                    style: TextStyle(
-                      color: Colors.black,
-                      decoration: TextDecoration.none,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16.0,
-                    )),
-                RoundedButton(
-                    borderRadius: 10, textBtn: 'logout', onPress: () {}),
-              ],
-            ),
-            const Expanded(
-              child: Center(
-                child: Text('Cup Component',
-                    style: TextStyle(
-                      color: Colors.black,
-                      decoration: TextDecoration.none,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16.0,
-                    )),
-              ),
-            ),
-            // expanded
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
-              child: Center(
-                child: Row(
+                Center(child: HeroLogo(imgHeight: 70.0)),
+                const SizedBox(
+                  height: 25,
+                ),
+                Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: const [
-                    TextRow(
-                      title: "Reward drink",
-                      titleResult: '3',
-                      imagePath: 'images/paper-cup.png',
-                    ),
-                    TextRow(
-                      title: "Star balance",
-                      titleResult: '4',
-                      imagePath: 'images/star.png',
-                    ),
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text('Hi,Ahmad',
+                        style: TextStyle(
+                          color: Colors.black,
+                          decoration: TextDecoration.none,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16.0,
+                        )),
+                    RoundedButton(
+                        borderRadius: 10, textBtn: 'logout', onPress: () {}),
                   ],
                 ),
-              ),
-            ),
+                const Expanded(
+                  child: Center(
+                    child: Text('Cup Component',
+                        style: TextStyle(
+                          color: Colors.black,
+                          decoration: TextDecoration.none,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16.0,
+                        )),
+                  ),
+                ),
+                // expanded
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+                  child: Center(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: const [
+                        TextRow(
+                          title: "Reward drink",
+                          titleResult: '3',
+                          imagePath: 'images/paper-cup.png',
+                        ),
+                        TextRow(
+                          title: "Star balance",
+                          titleResult: '4',
+                          imagePath: 'images/star.png',
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Center(
+                  child: RoundedButton(
+                    borderRadius: 10.0,
+                    textBtn: 'SCAN QR',
+                    onPress: () {
+                      _showFullModal(context, data);
+                    },
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                  child: TextRow(
+                      title: "Whirl",
+                      titleResult: '0',
+                      imagePath: 'images/coffee-bag.png'),
+                ),
+                // WhirlIconWidget(
+                //   whirlCount: 10,
+                // ) ,
+                const SizedBox(
+                  width: double.infinity,
+                  child: WhirlCount(),
+                ),
 
-            Center(
-              child: RoundedButton(
-                borderRadius: 10.0,
-                textBtn: 'SCAN QR',
-                onPress: () {
-                  _showFullModal(context, data);
-                },
-              ),
+              ],
+
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-              child: TextRow(
-                  title: "Whirl",
-                  titleResult: '0',
-                  imagePath: 'images/paper-cup.png'),
-            ),
-            // WhirlIconWidget(
-            //   whirlCount: 10,
-            // ) ,
-            const Expanded(
-              child: SizedBox(
-                width: double.infinity,
-                child: WhirlCount(),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -114,10 +138,9 @@ class TextRow extends StatelessWidget {
   final String titleResult;
   final String imagePath;
   const TextRow(
-      {super.key,
-      required this.title,
-      required this.titleResult,
-      required this.imagePath});
+      {required this.title,
+        required this.titleResult,
+        required this.imagePath});
 
   @override
   Widget build(BuildContext context) {
@@ -153,7 +176,7 @@ dynamic _showFullModal(context, String data) {
     barrierLabel: "Modal", // label for barrier
     transitionDuration: const Duration(
         milliseconds:
-            500), // how long it takes to popup dialog after button click
+        500), // how long it takes to popup dialog after button click
     pageBuilder: (_, __, ___) {
       // your widget implementation
       return Scaffold(
@@ -178,15 +201,20 @@ dynamic _showFullModal(context, String data) {
               Center(
                 child: HeroLogo(imgHeight: 100.0),
               ),
-              Center(
-                  child: BarcodeWidget(
-                data: data,
-                barcode: Barcode.qrCode(),
-                color: Colors.black87,
-                height: 250,
-                width: 250,
-                margin: const EdgeInsets.only(top: 40),
-              )),
+              const SizedBox(
+                height: 15.0,
+              ),
+              Expanded(
+                child: Center(
+                    child: BarcodeWidget(
+                      data: data,
+                      barcode: Barcode.qrCode(),
+                      color: Colors.black87,
+                      height: 250,
+                      width: 250,
+                      margin: EdgeInsets.only(top: 40),
+                    )),
+              ),
               Expanded(
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
