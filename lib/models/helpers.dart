@@ -45,3 +45,28 @@ Future<Map<String, dynamic>> getUserData(String userId) async {
   }
 }
 
+// Get user detail based on field value
+Future<dynamic> getUserDetail(String fieldName, String fieldValue) async{
+
+  // Get a reference to the collection you want to query
+  final CollectionReference collectionRef = FirebaseFirestore.instance.collection('Clients');
+
+  final userDetail = await collectionRef.where(fieldName, isEqualTo: fieldValue).limit(1).get();
+  if(userDetail.size != 0){
+    return userDetail.docs.first.data()!;
+  }else
+    {
+      throw Exception('User not found!');
+    }
+
+}
+
+
+
+
+
+
+
+
+
+

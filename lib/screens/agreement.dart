@@ -32,8 +32,9 @@ class _AgreementScreenState extends State<AgreementScreen> {
   final _fireStore = FirebaseFirestore.instance;
   bool showSpinner = false;
   final ScrollController controller = ScrollController();
+
   @override
-  void initState() {
+  void initState()  {
     // TODO: implement initState
     super.initState();
   }

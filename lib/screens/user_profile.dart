@@ -25,18 +25,21 @@ class _UserProfileState extends State<UserProfile> {
   late String fullName;
   late String userIdRef = '';
 
+Future<dynamic> getData (String userId) async {
+  final userInfo =  await getUserData(userIdRef);
+  if(userInfo.isNotEmpty){
+    setState(() {
+      userData = userInfo;
+      qrData = userData['qr_code'];
+    });
+  }
+
+}
   @override
   void initState () {
     super.initState();
     userIdRef = widget.userDocId;
-    getUserData(userIdRef).then((data) {
-      setState(() {
-        userData = data;
-        qrData = userData['qr_code'];
-      });
-    }).catchError((error) => print(error));
-
-
+    getData(userIdRef);
   }
 
   @override
