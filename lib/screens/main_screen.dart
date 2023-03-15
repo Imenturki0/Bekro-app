@@ -30,7 +30,7 @@ class _MainScreenState extends State<MainScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Row(
-                  children: <Widget>[
+                  children: const <Widget>[
                     Expanded(
                       child: HeroLogo(imgHeight: 160.0),
                     ),
