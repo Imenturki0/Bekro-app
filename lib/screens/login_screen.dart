@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../constants.dart';
 import '../components/rounded_button.dart';
@@ -8,6 +9,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../screens/forget_screen.dart';
 import '../screens/registration_screen.dart';
 import '../screens/user_profile.dart';
+import '../screens/admin_control_panel.dart';
 import '../components/form_input.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 import 'package:cool_alert/cool_alert.dart';
@@ -25,6 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
   late String email;
   late String password;
   bool showSpinner = false;
+  final newCollection = FirebaseFirestore.instance.collection('Clients');
 
   final _formKey = GlobalKey<FormState>();
   String? validateInputs(String? value, String inputType) {
@@ -84,21 +87,33 @@ class _LoginScreenState extends State<LoginScreen> {
                       textBtn: 'LogIn',
                       onPress: () async {
                         if (_formKey.currentState!.validate()) {
-                          setState(() {
-                            showSpinner = true;
-                          });
+                          setState(() {showSpinner = true;});
                           try {
                             UserCredential result = await FirebaseAuth.instance
-                                .signInWithEmailAndPassword(
-                                    email: email, password: password);
+                                .signInWithEmailAndPassword(email: email, password: password);
                             if (result.user != null) {
-                              setState(() {
-                                showSpinner = false;
+                              setState(() {showSpinner = false;});
+                              var currentUid = result.user!.uid;
+                              final CollectionReference collectionRef = FirebaseFirestore.instance.collection('Clients');
+                              await collectionRef.where('uid', isEqualTo: '$currentUid').limit(1).get().then((userDetail) {
+                                if(userDetail.size != 0){
+                                  var currentDoc=userDetail.docs.first;
+                                  if(currentDoc.get("is_admin")==true){
+                                    Navigator.pushNamedAndRemoveUntil(
+                                        context,
+                                        AdminControlPanel.id,
+                                        ModalRoute.withName('$LoginScreen.id'));
+                                  }
+                                  else{
+                                    Navigator.push (
+                                      context,
+                                      MaterialPageRoute (
+                                        builder: (BuildContext context) =>  UserProfile(userDocId: currentDoc.id ),
+                                      ),
+                                    );
+                                  }
+                                }
                               });
-                              Navigator.pushNamedAndRemoveUntil(
-                                  context,
-                                  UserProfile.id,
-                                  ModalRoute.withName('$LoginScreen.id'));
                             }
                           } catch (e) {
                             setState(() {showSpinner = false;});

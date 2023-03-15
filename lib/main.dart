@@ -35,14 +35,13 @@ class BekronApp extends StatelessWidget {
       home: const LaunchScreen(),
       theme: ThemeData(
         textSelectionTheme:
-            const TextSelectionThemeData(cursorColor: mainAppColor),
+        const TextSelectionThemeData(cursorColor: mainAppColor),
       ),
       routes: {
         MainScreen.id: (context) => MainScreen(),
         LoginScreen.id: (context) => const LoginScreen(),
         RegistrationScreen.id: (context) => const RegistrationScreen(),
         ForgotPassword.id: (context) => const ForgotPassword(),
-        UserProfile.id: (context) => const UserProfile(),
         UserScan.id: (context) => UserScan(),
         WhirlCount.id: (context) => const WhirlCount(),
         AdminControlPanel.id: (context) => const AdminControlPanel(),

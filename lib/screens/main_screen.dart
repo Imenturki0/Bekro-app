@@ -24,7 +24,6 @@ class _MainScreenState extends State<MainScreen> {
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(
-            height: 300.0,
             alignment: Alignment.center,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
