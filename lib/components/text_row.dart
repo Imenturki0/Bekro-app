@@ -6,7 +6,8 @@ class TextRow extends StatelessWidget {
   final String titleResult;
   final String imagePath;
   const TextRow(
-      {required this.title,
+      {super.key,
+      required this.title,
       required this.titleResult,
       required this.imagePath});
 

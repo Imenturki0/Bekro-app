@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../constants.dart';
 
 class StartPagesHeader extends StatelessWidget {
-  StartPagesHeader({required this.mainText});
+  const StartPagesHeader({super.key, required this.mainText});
   final String mainText;
 
   @override
