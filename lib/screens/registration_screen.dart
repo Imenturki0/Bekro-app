@@ -20,7 +20,6 @@ class RegistrationScreen extends StatefulWidget {
 class _RegistrationScreenState extends State<RegistrationScreen> {
   late String name;
   late String email;
-  late String phone;
   late String password;
   late String confirmPassword;
 
@@ -33,8 +32,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     } else
       if (inputType == 'email' && !validator.email(value)) {
       return 'Please enter a valid email';
-    } else if (inputType == 'phone' && !validator.phone(value)) {
-      return 'Please enter a valid phone';
     } else if (inputType == 'password' && value.length < 6) {
       return 'Password must be at least 6 characters';
     } else if (inputType == 'confirmPassword' && password != confirmPassword) {
@@ -86,15 +83,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       email = value;
                     },
                   ),
-                  FormInput(
-                    hintText: 'Phone Number',
-                    validatorFunction: (value) =>
-                        validateInputs(value, 'phone'),
-                    onChangedFunction: (value) {
-                      phone = value;
-                    },
-                  ),
-                  FormInput(
+               FormInput(
                     hintText: 'Password',
                     validatorFunction: (value) =>
                         validateInputs(value, 'password'),
@@ -123,7 +112,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           return AgreementScreen(
                             name: name,
                             email: email,
-                            phone: phone,
                             password: password,
                           );
                         }));
