@@ -3,8 +3,8 @@ import 'package:flutter_map/flutter_map.dart'; // Suitable for most situations
 import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong2/latlong.dart';
 
-class map extends StatelessWidget {
-  const map({
+class Map extends StatelessWidget {
+  const Map({
     super.key,
     required this.mapController,
     required this.currentCenter,
@@ -20,7 +20,7 @@ class map extends StatelessWidget {
     return Container(
       height: 135,
       width: 150,
-      margin: EdgeInsets.only(top: 20.0),
+      margin: const EdgeInsets.only(top: 20.0),
       child: FlutterMap(
         mapController: mapController,
         options: MapOptions(
@@ -29,7 +29,7 @@ class map extends StatelessWidget {
           enableScrollWheel: true,
           scrollWheelVelocity: 0.005,
         ),
-        nonRotatedChildren: [],
+        nonRotatedChildren: const [],
         children: [
           TileLayer(
             urlTemplate: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -41,12 +41,10 @@ class map extends StatelessWidget {
                 point: currentCenter,
                 width: 80,
                 height: 80,
-                builder: (context) => Container(
-                  child: Icon(
-                    Icons.location_on,
-                    size: 45,
-                    color: Colors.red,
-                  ),
+                builder: (context) => const Icon(
+                  Icons.location_on,
+                  size: 45,
+                  color: Colors.red,
                 ),
               ),
             ],
