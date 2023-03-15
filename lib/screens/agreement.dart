@@ -32,18 +32,20 @@ class _AgreementScreenState extends State<AgreementScreen> {
   final ScrollController controller = ScrollController();
 
   @override
-  void initState()  {
+  void initState() {
     // TODO: implement initState
     super.initState();
   }
+
   void _openMyPage(String userDocId) {
-    Navigator.push (
+    Navigator.push(
       context,
-      MaterialPageRoute (
-        builder: (BuildContext context) =>  UserProfile(userDocId: userDocId ),
+      MaterialPageRoute(
+        builder: (BuildContext context) => UserProfile(userDocId: userDocId),
       ),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,9 +92,9 @@ class _AgreementScreenState extends State<AgreementScreen> {
                       textBtn: 'I have read and I approve',
                       onPress: () async {
                         setState(() {
-                        showSpinner = true;
+                          showSpinner = true;
                         });
-                       try {
+                        try {
                           UserCredential user = await FirebaseAuth.instance
                               .createUserWithEmailAndPassword(
                             email: widget.email,
@@ -102,8 +104,10 @@ class _AgreementScreenState extends State<AgreementScreen> {
                           updateUser?.updateDisplayName(widget.name);
 
                           final userDocId = await userSetup(widget.name);
-                          _openMyPage(userDocId );
-                        setState(() {showSpinner = false;});
+                          _openMyPage(userDocId);
+                          setState(() {
+                            showSpinner = false;
+                          });
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'weak-password') {
                             print('The password provided is too weak.');
@@ -148,4 +152,3 @@ Future<String> signUpWithEmailAndPassword(String email, String password) async {
     return e.toString();
   }
 }
-

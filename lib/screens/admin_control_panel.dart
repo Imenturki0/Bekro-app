@@ -39,8 +39,8 @@ class _AdminControlPanelState extends State<AdminControlPanel> {
     await newCollection
         .doc("id")
         .update({
-      "stars_count": stars_count + 1,
-    })
+          "stars_count": stars_count + 1,
+        })
         .then((value) => {})
         .catchError((error) => print(error));
   }
@@ -49,8 +49,8 @@ class _AdminControlPanelState extends State<AdminControlPanel> {
     await newCollection
         .doc("id")
         .update({
-      "used_cups_count": used_cups_count + 1,
-    })
+          "used_cups_count": used_cups_count + 1,
+        })
         .then((value) => print("done"))
         .catchError((error) => print(error));
   }
@@ -146,7 +146,6 @@ class _AdminControlPanelState extends State<AdminControlPanel> {
                   )
                 ],
               ),
-
               const SizedBox(
                 height: 40,
               ),
@@ -189,9 +188,10 @@ class _AdminControlPanelState extends State<AdminControlPanel> {
                               setState(() {
                                 setState(() {
                                   stars_in_view =
-                                      (stars_count -10) - used_cups_count * 10;
+                                      (stars_count - 10) - used_cups_count * 10;
                                   rewards_cup_in_view =
-                                      ((stars_count -10) / 10 - used_cups_count)
+                                      ((stars_count - 10) / 10 -
+                                              used_cups_count)
                                           .toInt();
                                   print(rewards_cup_in_view);
                                   print(stars_in_view);
@@ -245,7 +245,7 @@ class _AdminControlPanelState extends State<AdminControlPanel> {
                       child: Column(
                         children: const [
                           Padding(
-                            padding: EdgeInsets.only(left:12.0),
+                            padding: EdgeInsets.only(left: 12.0),
                             child: TextRow(
                               title: "Whirl",
                               titleResult: '0',
@@ -265,7 +265,7 @@ class _AdminControlPanelState extends State<AdminControlPanel> {
                     Flexible(
                       flex: 4,
                       child: Padding(
-                          padding: const EdgeInsets.only(top:25.0,left: 10),
+                          padding: const EdgeInsets.only(top: 25.0, left: 10),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -287,7 +287,6 @@ class _AdminControlPanelState extends State<AdminControlPanel> {
                     ),
                   ],
                 ),
-
               ),
             ],
           ),

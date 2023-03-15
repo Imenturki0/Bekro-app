@@ -1,5 +1,4 @@
 import '../screens/admin_control_panel.dart';
-import '../screens/user_profile.dart';
 import '../screens/user_scan.dart';
 import '../screens/login_screen.dart';
 import '../screens/registration_screen.dart';
@@ -13,7 +12,6 @@ import '../components/whirl_count.dart';
 
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -35,7 +33,7 @@ class BekronApp extends StatelessWidget {
       home: const LaunchScreen(),
       theme: ThemeData(
         textSelectionTheme:
-        const TextSelectionThemeData(cursorColor: mainAppColor),
+            const TextSelectionThemeData(cursorColor: mainAppColor),
       ),
       routes: {
         MainScreen.id: (context) => MainScreen(),

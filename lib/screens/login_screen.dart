@@ -87,28 +87,40 @@ class _LoginScreenState extends State<LoginScreen> {
                       textBtn: 'LogIn',
                       onPress: () async {
                         if (_formKey.currentState!.validate()) {
-                          setState(() {showSpinner = true;});
+                          setState(() {
+                            showSpinner = true;
+                          });
                           try {
                             UserCredential result = await FirebaseAuth.instance
-                                .signInWithEmailAndPassword(email: email, password: password);
+                                .signInWithEmailAndPassword(
+                                    email: email, password: password);
                             if (result.user != null) {
-                              setState(() {showSpinner = false;});
+                              setState(() {
+                                showSpinner = false;
+                              });
                               var currentUid = result.user!.uid;
-                              final CollectionReference collectionRef = FirebaseFirestore.instance.collection('Clients');
-                              await collectionRef.where('uid', isEqualTo: '$currentUid').limit(1).get().then((userDetail) {
-                                if(userDetail.size != 0){
-                                  var currentDoc=userDetail.docs.first;
-                                  if(currentDoc.get("is_admin")==true){
+                              final CollectionReference collectionRef =
+                                  FirebaseFirestore.instance
+                                      .collection('Clients');
+                              await collectionRef
+                                  .where('uid', isEqualTo: '$currentUid')
+                                  .limit(1)
+                                  .get()
+                                  .then((userDetail) {
+                                if (userDetail.size != 0) {
+                                  var currentDoc = userDetail.docs.first;
+                                  if (currentDoc.get("is_admin") == true) {
                                     Navigator.pushNamedAndRemoveUntil(
                                         context,
                                         AdminControlPanel.id,
                                         ModalRoute.withName('$LoginScreen.id'));
-                                  }
-                                  else{
-                                    Navigator.push (
+                                  } else {
+                                    Navigator.push(
                                       context,
-                                      MaterialPageRoute (
-                                        builder: (BuildContext context) =>  UserProfile(userDocId: currentDoc.id ),
+                                      MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            UserProfile(
+                                                userDocId: currentDoc.id),
                                       ),
                                     );
                                   }
@@ -116,7 +128,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               });
                             }
                           } catch (e) {
-                            setState(() {showSpinner = false;});
+                            setState(() {
+                              showSpinner = false;
+                            });
                             CoolAlert.show(
                               context: context,
                               type: CoolAlertType.error,

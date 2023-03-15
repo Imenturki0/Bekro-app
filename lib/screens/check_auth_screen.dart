@@ -13,8 +13,7 @@ class CheckAuth extends StatelessWidget {
     User? firebaseUser = FirebaseAuth.instance.currentUser;
     Widget firstWidget;
     if (firebaseUser != null) {
-
-      firstWidget =  RegistrationScreen();
+      firstWidget = RegistrationScreen();
     } else {
       firstWidget = MainScreen();
     }

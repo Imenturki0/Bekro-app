@@ -12,6 +12,8 @@ import 'package:url_launcher/url_launcher.dart';
 class TalkToUs extends StatefulWidget {
   static String id = 'talk_to_us';
 
+  const TalkToUs({super.key});
+
   @override
   State<TalkToUs> createState() => _TalkToUsState();
 }
@@ -27,7 +29,7 @@ class _TalkToUsState extends State<TalkToUs> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Container(
+        child: SizedBox(
           height: double.infinity,
           child: SingleChildScrollView(
             // to scroll screen up and down easly
@@ -114,7 +116,7 @@ class _TalkToUsState extends State<TalkToUs> {
                               )
                             ],
                           ),
-                          map(
+                          Map(
                               mapController: mapController,
                               currentCenter: currentCenter,
                               currentZoom: currentZoom)
