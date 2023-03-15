@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:uuid/uuid.dart';
-import 'user_detail.dart';
+
 final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 Future<String> userSetup(String displayName) async {
-  final UserDetail user ;
+
   CollectionReference users = FirebaseFirestore.instance.collection('Clients');
   FirebaseAuth auth = FirebaseAuth.instance;
   String? uid = auth.currentUser?.uid;

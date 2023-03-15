@@ -57,7 +57,7 @@ const kUserScanText = TextStyle(
 );
 const kUserAdminText = TextStyle(
   fontWeight: FontWeight.bold,
-  fontSize: 24.0,
+  fontSize: 20.0,
   color: Colors.black87,
   decoration: TextDecoration.none,
 );

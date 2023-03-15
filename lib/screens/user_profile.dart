@@ -1,4 +1,3 @@
-import 'package:bekron_app/models/user_detail.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../components/whirl_count.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +6,7 @@ import 'package:barcode_widget/barcode_widget.dart';
 import '../components/rounded_button.dart';
 import '../constants.dart';
 import '../models/helpers.dart';
+import '../screens/main_screen.dart';
 
 class UserProfile extends StatefulWidget {
   static String id = 'user_profile_screen';
@@ -24,18 +24,18 @@ class _UserProfileState extends State<UserProfile> {
   late String fullName;
   late String userIdRef = '';
 
-Future<dynamic> getData (String userId) async {
-  final userInfo =  await getUserData(userIdRef);
-  if(userInfo.isNotEmpty){
-    setState(() {
-      userData = userInfo;
-      qrData = userData['qr_code'];
-    });
+  Future<dynamic> getData(String userId) async {
+    final userInfo = await getUserData(userIdRef);
+    if (userInfo.isNotEmpty) {
+      setState(() {
+        userData = userInfo;
+        qrData = userData['qr_code'];
+      });
+    }
   }
 
-}
   @override
-  void initState () {
+  void initState() {
     super.initState();
     userIdRef = widget.userDocId;
     getData(userIdRef);
@@ -43,7 +43,6 @@ Future<dynamic> getData (String userId) async {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.all(20),
@@ -68,7 +67,12 @@ Future<dynamic> getData (String userId) async {
                       fontSize: 16.0,
                     )),
                 RoundedButton(
-                    borderRadius: 10, textBtn: 'logout', onPress: () {}),
+                    borderRadius: 10,
+                    textBtn: 'logout',
+                    onPress: () async {
+                      await FirebaseAuth.instance.signOut();
+                      Navigator.pushNamed(context, MainScreen.id);
+                    }),
               ],
             ),
             const Expanded(
@@ -89,9 +93,10 @@ Future<dynamic> getData (String userId) async {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children:  [
+                  children: [
                     TextRow(
-                      title: "Reward drink", imagePath: 'images/paper-cup.png',
+                      title: "Reward drink",
+                      imagePath: 'images/paper-cup.png',
                       titleResult: '${userData['used_cups_count'] ?? '0'} ',
                     ),
                     TextRow(
@@ -113,7 +118,7 @@ Future<dynamic> getData (String userId) async {
                 },
               ),
             ),
-             Padding(
+            Padding(
               padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
               child: TextRow(
                   title: "Whirl",

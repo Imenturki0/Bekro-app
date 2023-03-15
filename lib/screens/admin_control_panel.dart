@@ -5,6 +5,7 @@ import '../components/rounded_button.dart';
 import '../components/text_row.dart';
 import '../constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'admin_scan_qr.dart';
 
 class AdminControlPanel extends StatefulWidget {
   static String id = 'admin_panel_screen';
@@ -87,19 +88,65 @@ class _AdminControlPanelState extends State<AdminControlPanel> {
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                name,
-                style: kUserAdminText,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        name,
+                        style: kUserAdminText,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        email,
+                        style: kUserAdminEmailText,
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 7.0),
+                        child: Material(
+                          elevation: 5.0,
+                          color: mainAppColor,
+                          borderRadius: BorderRadius.circular(10),
+                          child: MaterialButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, AdminScanQr.id);
+                            },
+                            minWidth: 140,
+                            height: 49.0,
+                            child: Row(
+                              children: const [
+                                Text(
+                                  'back',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Icon(
+                                  Icons.arrow_back,
+                                  color: Colors.white,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  )
+                ],
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                email,
-                style: kUserAdminEmailText,
-              ),
+
               const SizedBox(
                 height: 40,
               ),
@@ -109,47 +156,51 @@ class _AdminControlPanelState extends State<AdminControlPanel> {
                 children: [
                   Column(
                     children: [
-                      RoundedButton(
-                          borderRadius: 10,
-                          textBtn: '1*',
-                          onPress: () {
-                            getData();
-                            setState(() {
-                              stars_in_view =
-                                  (stars_count + 1) - used_cups_count * 10;
-                              rewards_cup_in_view =
-                                  ((stars_count + 1) / 10 - used_cups_count)
-                                      .toInt();
-                              print(rewards_cup_in_view);
-                              print(stars_in_view);
-                            });
-                            addStar();
-                          },
-                          btnWidth: 100,
-                          btnHeight: 50.0),
-                      const SizedBox(
-                        height: 24,
-                      ),
-                      RoundedButton(
-                          borderRadius: 10,
-                          textBtn: '10*',
-                          onPress: () {
-                            getData();
-                            oneUse();
-                            setState(() {
+                      SizedBox(
+                        child: RoundedButton(
+                            borderRadius: 10,
+                            textBtn: '1*',
+                            onPress: () {
+                              getData();
                               setState(() {
                                 stars_in_view =
-                                    (stars_count -10) - used_cups_count * 10;
+                                    (stars_count + 1) - used_cups_count * 10;
                                 rewards_cup_in_view =
-                                    ((stars_count -10) / 10 - used_cups_count)
+                                    ((stars_count + 1) / 10 - used_cups_count)
                                         .toInt();
                                 print(rewards_cup_in_view);
                                 print(stars_in_view);
                               });
-                            });
-                          },
-                          btnWidth: 100,
-                          btnHeight: 50.0),
+                              addStar();
+                            },
+                            btnWidth: 100,
+                            btnHeight: 50.0),
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      SizedBox(
+                        child: RoundedButton(
+                            borderRadius: 10,
+                            textBtn: '10*',
+                            onPress: () {
+                              getData();
+                              oneUse();
+                              setState(() {
+                                setState(() {
+                                  stars_in_view =
+                                      (stars_count -10) - used_cups_count * 10;
+                                  rewards_cup_in_view =
+                                      ((stars_count -10) / 10 - used_cups_count)
+                                          .toInt();
+                                  print(rewards_cup_in_view);
+                                  print(stars_in_view);
+                                });
+                              });
+                            },
+                            btnWidth: 100,
+                            btnHeight: 50.0),
+                      ),
                     ],
                   ),
                   Column(
@@ -182,40 +233,62 @@ class _AdminControlPanelState extends State<AdminControlPanel> {
                 ],
               ),
               const SizedBox(
-                height: 20,
+                height: 50,
               ),
-              const TextRow(
-                title: "Whirl",
-                titleResult: '0',
-                imagePath: 'images/coffee-bag.png',
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Flexible(
-                    flex: 5,
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: WhirlCount(),
-                    ),
-                  ),
-                  Flexible(
-                    flex: 3,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10.0),
-                      child: RoundedButton(
-                        borderRadius: 10,
-                        textBtn: 'Add Whirl',
-                        onPress: () {},
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Flexible(
+                      flex: 8,
+                      child: Column(
+                        children: const [
+                          Padding(
+                            padding: EdgeInsets.only(left:12.0),
+                            child: TextRow(
+                              title: "Whirl",
+                              titleResult: '0',
+                              imagePath: 'images/coffee-bag.png',
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          SizedBox(
+                            width: double.infinity,
+                            child: WhirlCount(),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-                ],
-              )
+                    Flexible(
+                      flex: 4,
+                      child: Padding(
+                          padding: const EdgeInsets.only(top:25.0,left: 10),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              RoundedButton(
+                                borderRadius: 10,
+                                textBtn: 'Add Whirl',
+                                onPress: () {},
+                                btnHeight: 49.0,
+                              ),
+                              RoundedButton(
+                                borderRadius: 10,
+                                textBtn: 'Use Whirl',
+                                onPress: () {},
+                                btnHeight: 49.0,
+                              ),
+                            ],
+                          )),
+                    ),
+                  ],
+                ),
+
+              ),
             ],
           ),
         ),

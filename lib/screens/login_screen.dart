@@ -9,6 +9,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../screens/forget_screen.dart';
 import '../screens/registration_screen.dart';
 import '../screens/user_profile.dart';
+import '../screens/admin_control_panel.dart';
 import '../components/form_input.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 import 'package:cool_alert/cool_alert.dart';
@@ -92,15 +93,25 @@ class _LoginScreenState extends State<LoginScreen> {
                                 .signInWithEmailAndPassword(email: email, password: password);
                             if (result.user != null) {
                               setState(() {showSpinner = false;});
-                              /*Navigator.pushNamedAndRemoveUntil(
-                                  context,
-                                  UserProfile.id,
-                                  ModalRoute.withName('$LoginScreen.id'));*/
-
+                              var currentUid = result.user!.uid;
                               final CollectionReference collectionRef = FirebaseFirestore.instance.collection('Clients');
-                              await collectionRef.where('uid', isEqualTo: '$result.user.uid').limit(1).get().then((userDetail) {
+                              await collectionRef.where('uid', isEqualTo: '$currentUid').limit(1).get().then((userDetail) {
                                 if(userDetail.size != 0){
-                                  print(userDetail.docs.first.data());
+                                  var currentDoc=userDetail.docs.first;
+                                  if(currentDoc.get("is_admin")==true){
+                                    Navigator.pushNamedAndRemoveUntil(
+                                        context,
+                                        AdminControlPanel.id,
+                                        ModalRoute.withName('$LoginScreen.id'));
+                                  }
+                                  else{
+                                    Navigator.push (
+                                      context,
+                                      MaterialPageRoute (
+                                        builder: (BuildContext context) =>  UserProfile(userDocId: currentDoc.id ),
+                                      ),
+                                    );
+                                  }
                                 }
                               });
                             }

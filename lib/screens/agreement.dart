@@ -77,13 +77,10 @@ class _AgreementScreenState extends State<AgreementScreen> {
                       child: Column(
                         children: const <Widget>[
                           Expanded(
-                            child: RawScrollbar(
-                              thumbColor: Color(0xFF414042),
-                              child: SingleChildScrollView(
-                                  padding: EdgeInsets.only(right: 22),
-                                  scrollDirection: Axis.vertical,
-                                  child: AgreementText),
-                            ),
+                            child: SingleChildScrollView(
+                                padding: EdgeInsets.only(right: 22),
+                                scrollDirection: Axis.vertical,
+                                child: AgreementText),
                           ),
                         ],
                       ),
@@ -106,9 +103,7 @@ class _AgreementScreenState extends State<AgreementScreen> {
 
                           final userDocId = await userSetup(widget.name);
                           _openMyPage(userDocId );
-                        setState(() {
-                        showSpinner = false;
-                        });
+                        setState(() {showSpinner = false;});
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'weak-password') {
                             print('The password provided is too weak.');
