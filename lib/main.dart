@@ -1,5 +1,4 @@
 import '../screens/admin_control_panel.dart';
-import '../screens/user_profile.dart';
 import '../screens/user_scan.dart';
 import '../screens/login_screen.dart';
 import '../screens/registration_screen.dart';
@@ -41,7 +40,6 @@ class BekronApp extends StatelessWidget {
         LoginScreen.id: (context) => const LoginScreen(),
         RegistrationScreen.id: (context) => const RegistrationScreen(),
         ForgotPassword.id: (context) => const ForgotPassword(),
-        UserProfile.id: (context) => const UserProfile(),
         UserScan.id: (context) => UserScan(),
         WhirlCount.id: (context) => const WhirlCount(),
         AdminControlPanel.id: (context) => const AdminControlPanel(),
