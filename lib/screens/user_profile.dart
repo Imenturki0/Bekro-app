@@ -2,7 +2,6 @@ import '../components/whirl_count.dart';
 import 'package:flutter/material.dart';
 import '../components/hero_logo.dart';
 import 'package:barcode_widget/barcode_widget.dart';
-import 'package:flutter/services.dart';
 import '../components/rounded_button.dart';
 import '../constants.dart';
 
@@ -18,18 +17,10 @@ class _UserProfileState extends State<UserProfile> {
   @override
   void initState() {
     super.initState();
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
   }
 
   @override
   dispose() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
     super.dispose();
   }
   @override
