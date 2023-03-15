@@ -77,7 +77,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                               context: context,
                               type: CoolAlertType.success,
                               text: 'Password reset sent to your email',
-                              autoCloseDuration: const Duration(seconds: 2),
+                              autoCloseDuration: const Duration(seconds: 3),
                             );
                             await Future.delayed(const Duration(milliseconds: 3500), () {
                               Navigator.pushNamedAndRemoveUntil(

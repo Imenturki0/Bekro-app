@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../constants.dart';
 import '../components/rounded_button.dart';
@@ -25,6 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
   late String email;
   late String password;
   bool showSpinner = false;
+  final newCollection = FirebaseFirestore.instance.collection('Clients');
 
   final _formKey = GlobalKey<FormState>();
   String? validateInputs(String? value, String inputType) {
@@ -84,21 +86,23 @@ class _LoginScreenState extends State<LoginScreen> {
                       textBtn: 'LogIn',
                       onPress: () async {
                         if (_formKey.currentState!.validate()) {
-                          setState(() {
-                            showSpinner = true;
-                          });
+                          setState(() {showSpinner = true;});
                           try {
                             UserCredential result = await FirebaseAuth.instance
-                                .signInWithEmailAndPassword(
-                                    email: email, password: password);
+                                .signInWithEmailAndPassword(email: email, password: password);
                             if (result.user != null) {
-                              setState(() {
-                                showSpinner = false;
-                              });
-                              Navigator.pushNamedAndRemoveUntil(
+                              setState(() {showSpinner = false;});
+                              /*Navigator.pushNamedAndRemoveUntil(
                                   context,
                                   UserProfile.id,
-                                  ModalRoute.withName('$LoginScreen.id'));
+                                  ModalRoute.withName('$LoginScreen.id'));*/
+
+                              final CollectionReference collectionRef = FirebaseFirestore.instance.collection('Clients');
+                              await collectionRef.where('uid', isEqualTo: '$result.user.uid').limit(1).get().then((userDetail) {
+                                if(userDetail.size != 0){
+                                  print(userDetail.docs.first.data());
+                                }
+                              });
                             }
                           } catch (e) {
                             setState(() {showSpinner = false;});
