@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 import '../components/rounded_button.dart';
@@ -18,18 +20,18 @@ class RegistrationScreen extends StatefulWidget {
 class _RegistrationScreenState extends State<RegistrationScreen> {
   late String name;
   late String email;
-  late String phone;
   late String password;
   late String confirmPassword;
 
   final _formKey = GlobalKey<FormState>();
+  final _auth = FirebaseAuth.instance ;
+  final _fireStore = FirebaseFirestore.instance ;
   String? validateInputs(String? value, String inputType) {
     if (value == null || value.isEmpty) {
       return "* Required";
-    } else if (inputType == 'email' && !validator.email(value)) {
+    } else
+      if (inputType == 'email' && !validator.email(value)) {
       return 'Please enter a valid email';
-    } else if (inputType == 'phone' && !validator.phone(value)) {
-      return 'Please enter a valid phone';
     } else if (inputType == 'password' && value.length < 6) {
       return 'Password must be at least 6 characters';
     } else if (inputType == 'confirmPassword' && password != confirmPassword) {
@@ -37,7 +39,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     }
     return null;
   }
+@override
+   void initState() {
+    // TODO: implement initState
+    super.initState();
 
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,15 +83,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       email = value;
                     },
                   ),
-                  FormInput(
-                    hintText: 'Phone Number',
-                    validatorFunction: (value) =>
-                        validateInputs(value, 'phone'),
-                    onChangedFunction: (value) {
-                      phone = value;
-                    },
-                  ),
-                  FormInput(
+               FormInput(
                     hintText: 'Password',
                     validatorFunction: (value) =>
                         validateInputs(value, 'password'),
@@ -113,7 +112,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           return AgreementScreen(
                             name: name,
                             email: email,
-                            phone: phone,
                             password: password,
                           );
                         }));

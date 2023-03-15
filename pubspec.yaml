@@ -46,6 +46,7 @@ dependencies:
   http: ^0.13.5
   alert: ^2.0.1
   cool_alert:
+  uuid: ^3.0.7
 
 dev_dependencies:
   flutter_test:

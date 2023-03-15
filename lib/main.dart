@@ -16,6 +16,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'firebase_options.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -42,7 +43,7 @@ class BekronApp extends StatelessWidget {
         LoginScreen.id: (context) => const LoginScreen(),
         RegistrationScreen.id: (context) => const RegistrationScreen(),
         ForgotPassword.id: (context) => const ForgotPassword(),
-        UserProfile.id: (context) => const UserProfile(),
+        UserProfile.id: (context) =>  UserProfile(userDocId: ''),
         UserScan.id: (context) => UserScan(),
         WhirlCount.id: (context) => const WhirlCount(),
         AdminControlPanel.id: (context) => const AdminControlPanel(),
