@@ -11,7 +11,7 @@ import '../screens/main_screen.dart';
 class UserProfile extends StatefulWidget {
   static String id = 'user_profile_screen';
   final String userDocId;
-  UserProfile({required this.userDocId});
+  const UserProfile({super.key, required this.userDocId});
 
   @override
   State<UserProfile> createState() => _UserProfileState();
