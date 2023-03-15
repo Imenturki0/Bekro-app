@@ -69,29 +69,38 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       textBtn: 'SEND RESET LINK',
                       onPress: () async {
                         if (_formKey.currentState!.validate()) {
-                          setState(() {showSpinner = true;});
+                          setState(() {
+                            showSpinner = true;
+                          });
                           try {
-                            await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-                            setState(() {showSpinner = false;});
+                            await FirebaseAuth.instance
+                                .sendPasswordResetEmail(email: email);
+                            setState(() {
+                              showSpinner = false;
+                            });
                             CoolAlert.show(
                               context: context,
                               type: CoolAlertType.success,
                               text: 'Password reset sent to your email',
                               autoCloseDuration: const Duration(seconds: 2),
                             );
-                            await Future.delayed(const Duration(milliseconds: 3500), () {
+                            await Future.delayed(
+                                const Duration(milliseconds: 3500), () {
                               Navigator.pushNamedAndRemoveUntil(
                                   context,
                                   LoginScreen.id,
                                   ModalRoute.withName('$ForgotPassword.id'));
                             });
                           } catch (e) {
-                            setState(() {showSpinner = false;});
+                            setState(() {
+                              showSpinner = false;
+                            });
                             CoolAlert.show(
                               context: context,
                               type: CoolAlertType.error,
                               title: 'Failed',
-                              text: 'There is no user record corresponding to this identifier',
+                              text:
+                                  'There is no user record corresponding to this identifier',
                               loopAnimation: false,
                             );
                           }
@@ -105,7 +114,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       },
                       child: const Text(
                         'Go to Log In page',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 13.0),
                       ),
                     ),
                   ],

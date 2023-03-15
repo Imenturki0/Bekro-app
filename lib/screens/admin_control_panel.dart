@@ -38,8 +38,8 @@ class _AdminControlPanelState extends State<AdminControlPanel> {
     await newCollection
         .doc("id")
         .update({
-      "stars_count": stars_count + 1,
-    })
+          "stars_count": stars_count + 1,
+        })
         .then((value) => {})
         .catchError((error) => print(error));
   }
@@ -48,8 +48,8 @@ class _AdminControlPanelState extends State<AdminControlPanel> {
     await newCollection
         .doc("id")
         .update({
-      "used_cups_count": used_cups_count + 1,
-    })
+          "used_cups_count": used_cups_count + 1,
+        })
         .then((value) => print("done"))
         .catchError((error) => print(error));
   }
@@ -139,9 +139,9 @@ class _AdminControlPanelState extends State<AdminControlPanel> {
                             setState(() {
                               setState(() {
                                 stars_in_view =
-                                    (stars_count -10) - used_cups_count * 10;
+                                    (stars_count - 10) - used_cups_count * 10;
                                 rewards_cup_in_view =
-                                    ((stars_count -10) / 10 - used_cups_count)
+                                    ((stars_count - 10) / 10 - used_cups_count)
                                         .toInt();
                                 print(rewards_cup_in_view);
                                 print(stars_in_view);

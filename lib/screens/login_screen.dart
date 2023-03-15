@@ -101,7 +101,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ModalRoute.withName('$LoginScreen.id'));
                             }
                           } catch (e) {
-                            setState(() {showSpinner = false;});
+                            setState(() {
+                              showSpinner = false;
+                            });
                             CoolAlert.show(
                               context: context,
                               type: CoolAlertType.error,
