@@ -22,6 +22,7 @@ class _AdminControlPanelState extends State<AdminControlPanel> {
   int rewards_cup_in_view = 0;
   int whirls_count=0;
   int whirls_images=0;
+  int whirls_number=0;
   List<String> items=[];
   void getData() async {
     // DocumentSnapshot document = await FirebaseFirestore.instance.collection('users').document(uid).get();
@@ -30,13 +31,16 @@ class _AdminControlPanelState extends State<AdminControlPanel> {
       used_cups_count = document.data()!["used_cups_count"];
       stars_count = document.data()!["stars_count"];
       whirls_count=document.data()!["whirls_count"];
+
+
     });
     stars_in_view = stars_count - used_cups_count * 10;
     rewards_cup_in_view = (stars_count / 10 - used_cups_count).toInt();
     whirls_images=whirls_count%13;
+    whirls_number=(whirls_count/13).toInt();
     items = List.filled(whirls_images,'images/coffee-bag.png' );
-    print(whirls_images);
     print(whirls_count);
+
     print("get data");
   }
 
@@ -66,6 +70,17 @@ class _AdminControlPanelState extends State<AdminControlPanel> {
         .doc("id")
         .update({
       "whirls_count": whirls_count + 1,
+    })
+        .then((value) => {})
+        .catchError((error) => print(error));
+  }
+
+  void UseWhirl() async {
+//if(stars_in_view+1%10==0) {
+    await newCollection
+        .doc("id")
+        .update({
+      "whirls_count": whirls_count -13,
     })
         .then((value) => {})
         .catchError((error) => print(error));
@@ -266,7 +281,7 @@ class _AdminControlPanelState extends State<AdminControlPanel> {
                             padding: EdgeInsets.only(left: 12.0),
                             child: TextRow(
                               title: "Whirl",
-                              titleResult: '0',
+                              titleResult: whirls_number.toString(),
                               imagePath: 'images/coffee-bag.png',
                             ),
                           ),
@@ -296,17 +311,28 @@ class _AdminControlPanelState extends State<AdminControlPanel> {
                                   addWhirl();
                                   setState(() {
                                     whirls_images=(whirls_count+1)%13;
+                                    whirls_number=((whirls_count+1)/13).toInt();
+                                    print(whirls_number);
                                     items = List.filled(whirls_images,'images/coffee-bag.png' );
                                   });
-                                  print("length ");
-                                  print(items.length);
+                                //  print("length ");
+                                  //print(items.length);
                                 },
                                 btnHeight: 49.0,
                               ),
                               RoundedButton(
                                 borderRadius: 10,
                                 textBtn: 'Use Whirl',
-                                onPress: () {},
+                                onPress: () {
+                                  getData();
+                                  UseWhirl();
+                                  setState(() {
+
+                                    whirls_number=((whirls_count-13)/13).toInt();
+                                    print(whirls_number);
+
+                                  });
+                                },
                                 btnHeight: 49.0,
                               ),
                             ],
