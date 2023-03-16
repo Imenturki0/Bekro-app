@@ -41,7 +41,7 @@ class BekronApp extends StatelessWidget {
         RegistrationScreen.id: (context) => const RegistrationScreen(),
         ForgotPassword.id: (context) => const ForgotPassword(),
         UserScan.id: (context) => UserScan(),
-        WhirlCount.id: (context) => const WhirlCount(),
+        WhirlCount.id: (context) =>  WhirlCount(),
         AdminControlPanel.id: (context) => const AdminControlPanel(),
         LaunchScreen.id: (context) => const LaunchScreen(),
         TalkToUs.id: (context) => TalkToUs(),

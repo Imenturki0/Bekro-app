@@ -99,6 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 showSpinner = false;
                               });
                               var currentUid = result.user!.uid;
+                              print(currentUid);
                               final CollectionReference collectionRef =
                                   FirebaseFirestore.instance
                                       .collection('Clients');
@@ -109,7 +110,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   .then((userDetail) {
                                 if (userDetail.size != 0) {
                                   var currentDoc = userDetail.docs.first;
+                                  print(currentDoc.id);
                                   if (currentDoc.get("is_admin") == true) {
+
                                     Navigator.pushNamedAndRemoveUntil(
                                         context,
                                         AdminControlPanel.id,

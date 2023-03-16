@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import '../constants.dart';
 
 class WhirlCount extends StatefulWidget {
-  const WhirlCount({Key? key}) : super(key: key);
+  var whirls_image;
+  var items;
+  WhirlCount({Key? mykey,this.whirls_image,this.items}):super(key: mykey);
   static String id = 'whirl_screen';
 
   @override
   State<WhirlCount> createState() => _WhirlCountState();
+
 }
 
 class _WhirlCountState extends State<WhirlCount> {
-  final List<String> items = [
+
+  /*final List<String> items = [
     'images/coffee-bag.png',
     'images/coffee-bag.png',
     'images/coffee-bag.png',
@@ -24,8 +28,11 @@ class _WhirlCountState extends State<WhirlCount> {
     'images/coffee-bag.png',
     'images/coffee-bag.png',
     'images/coffee-bag.png',
-  ];
+  ];*/
+
+
   @override
+
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(15.0),
@@ -38,11 +45,14 @@ class _WhirlCountState extends State<WhirlCount> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+           /* TextButton(onPressed: (){setState(() {
+              initsState();
+            });}, child: Text("he")),*/
             Flexible(
               flex: 6,
               child: GridView.builder(
                 shrinkWrap: true,
-                itemCount: items.length,
+                itemCount: widget.items.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 7,
                   crossAxisSpacing: 0,
@@ -50,19 +60,19 @@ class _WhirlCountState extends State<WhirlCount> {
                 ),
                 itemBuilder: (BuildContext context, int index) {
                   return Image.asset(
-                    items[index],
+                    widget.items[index],
                     width: 40,
                     height: 40,
                   );
                 },
               ),
             ),
-            Flexible(
+            /*Flexible(
               flex: 2,
               child: Image.network(
                 'https://picsum.photos/100',
               ),
-            ),
+            ),*/
           ],
         ),
       ),

@@ -125,10 +125,10 @@ class _UserProfileState extends State<UserProfile> {
                   titleResult: '${userData['whirls_count'] ?? '0'} ',
                   imagePath: 'images/coffee-bag.png'),
             ),
-            const Expanded(
+             Expanded(
               child: SizedBox(
                 width: double.infinity,
-                child: WhirlCount(),
+                child: WhirlCount(whirls_image: 0),
               ),
             ),
           ],

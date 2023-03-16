@@ -20,17 +20,23 @@ class _AdminControlPanelState extends State<AdminControlPanel> {
   late int stars_count;
   int stars_in_view = 0;
   int rewards_cup_in_view = 0;
+  int whirls_count=0;
+  int whirls_images=0;
+  List<String> items=[];
   void getData() async {
     // DocumentSnapshot document = await FirebaseFirestore.instance.collection('users').document(uid).get();
-
+    print("starting..");
     await newCollection.doc('id').get().then((document) {
       used_cups_count = document.data()!["used_cups_count"];
       stars_count = document.data()!["stars_count"];
+      whirls_count=document.data()!["whirls_count"];
     });
     stars_in_view = stars_count - used_cups_count * 10;
     rewards_cup_in_view = (stars_count / 10 - used_cups_count).toInt();
-    print(stars_in_view);
-    print(rewards_cup_in_view);
+    whirls_images=whirls_count%13;
+    items = List.filled(whirls_images,'images/coffee-bag.png' );
+    print(whirls_images);
+    print(whirls_count);
     print("get data");
   }
 
@@ -54,6 +60,16 @@ class _AdminControlPanelState extends State<AdminControlPanel> {
         .then((value) => print("done"))
         .catchError((error) => print(error));
   }
+  void addWhirl() async {
+//if(stars_in_view+1%10==0) {
+    await newCollection
+        .doc("id")
+        .update({
+      "whirls_count": whirls_count + 1,
+    })
+        .then((value) => {})
+        .catchError((error) => print(error));
+  }
 
   final newCollection = FirebaseFirestore.instance.collection('Clients');
   String name = 'AHMET MADENOĞULLAR';
@@ -62,6 +78,8 @@ class _AdminControlPanelState extends State<AdminControlPanel> {
   void initState() {
     super.initState();
     getData();
+
+
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
@@ -243,7 +261,7 @@ class _AdminControlPanelState extends State<AdminControlPanel> {
                     Flexible(
                       flex: 8,
                       child: Column(
-                        children: const [
+                        children:  [
                           Padding(
                             padding: EdgeInsets.only(left: 12.0),
                             child: TextRow(
@@ -257,7 +275,7 @@ class _AdminControlPanelState extends State<AdminControlPanel> {
                           ),
                           SizedBox(
                             width: double.infinity,
-                            child: WhirlCount(),
+                            child:  WhirlCount(whirls_image: whirls_images,items: items),
                           ),
                         ],
                       ),
@@ -273,7 +291,16 @@ class _AdminControlPanelState extends State<AdminControlPanel> {
                               RoundedButton(
                                 borderRadius: 10,
                                 textBtn: 'Add Whirl',
-                                onPress: () {},
+                                onPress: () {
+                                  getData();
+                                  addWhirl();
+                                  setState(() {
+                                    whirls_images=(whirls_count+1)%13;
+                                    items = List.filled(whirls_images,'images/coffee-bag.png' );
+                                  });
+                                  print("length ");
+                                  print(items.length);
+                                },
                                 btnHeight: 49.0,
                               ),
                               RoundedButton(
