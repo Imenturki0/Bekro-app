@@ -131,7 +131,7 @@ class _AdminControlPanelState extends State<AdminControlPanel> {
             whirls_images = whirls_count % 13;
             whirls_number = (whirls_count / 13).toInt();
             items = List.filled(whirls_images, 'images/coffee-bag.png');
-
+            cupCount=result['stars_count']%10;
           });
         });
       }
@@ -154,6 +154,7 @@ class _AdminControlPanelState extends State<AdminControlPanel> {
               whirls_images = whirls_count % 13;
               whirls_number = (whirls_count / 13).toInt();
               items = List.filled(whirls_images, 'images/coffee-bag.png');
+              cupCount=result['stars_count']%10;
 
             });
           });

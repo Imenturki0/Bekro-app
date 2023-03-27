@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -38,10 +39,10 @@ class _UserProfileState extends State<UserProfile> {
   int whirls_number = 0;
   int stars_in_view = 0;
   int rewards_cup_in_view = 0;
-  int cupCount=0;
+  int cupCount = 0;
+  User? firebaseUser = FirebaseAuth.instance.currentUser;
 
   Future<dynamic> getData() async {
-    User? firebaseUser = FirebaseAuth.instance.currentUser;
     final userInfo = await getUserData(firebaseUser!.uid);
     if (userInfo.isNotEmpty) {
       setState(() {
@@ -49,12 +50,15 @@ class _UserProfileState extends State<UserProfile> {
         qrData = userData['qr_code'];
         whirlCount = userData['whirls_count'] % 13;
         whirls_number = (userData['whirls_count'] / 13).toInt();
-        stars_in_view = userData['stars_count'] - userData['used_cups_count'] * 10;
-        rewards_cup_in_view = (userData['stars_count'] / 10 - userData['used_cups_count']).toInt();
-cupCount=userData['stars_count']%10;
+        stars_in_view =
+            userData['stars_count'] - userData['used_cups_count'] * 10;
+        rewards_cup_in_view =
+            (userData['stars_count'] / 10 - userData['used_cups_count'])
+                .toInt();
+        cupCount = userData['stars_count'] % 10;
       });
       print(userData['stars_count']);
-      print( userData['used_cups_count']);
+      print(userData['used_cups_count']);
     }
   }
 
@@ -117,125 +121,163 @@ cupCount=userData['stars_count']%10;
                         height: double.infinity,
                         width: 600,
                         child: SingleChildScrollView(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              const Center(
-                                child: HeroLogo(imgHeight: 70.0),
-                              ),
-                              const SizedBox(
-                                height: 15,
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    ' ${userData['email'] ?? ''} ',
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      decoration: TextDecoration.none,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16.0,
+                          child: StreamBuilder<QuerySnapshot>(
+                              stream: FirebaseFirestore.instance
+                                  .collection('Clients')
+                                  .snapshots(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  final users = snapshot.data?.docs;
+
+                                  for (var user in users!) {
+                                    if (user.get('uid').toString() ==
+                                        firebaseUser!.uid.toString()) {
+                                      final messageText = user.get('uid');
+
+                                      qrData = user.get('qr_code');
+                                      whirlCount =
+                                          user.get('whirls_count') % 13;
+                                      whirls_number =
+                                          (user.get('whirls_count') / 13)
+                                              .toInt();
+                                      stars_in_view = user
+                                              .get('stars_count') -
+                                          user.get('used_cups_count') * 10;
+                                      rewards_cup_in_view =
+                                          (user.get('stars_count') / 10 -
+                                              user
+                                                      .get('used_cups_count'))
+                                              .toInt();
+                                      cupCount =
+                                          user.get('stars_count') % 10;
+                                    }
+                                  }
+                                } else {
+                                  print("none ");
+                                }
+
+                                return Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    const Center(
+                                      child: HeroLogo(imgHeight: 70.0),
                                     ),
-                                  ),
-                                  Material(
-                                    type: MaterialType.transparency,
-                                    child: Ink(
-                                      child: InkWell(
-                                        borderRadius:
-                                            BorderRadius.circular(500.0),
-                                        onTap: () async {
-                                          await FirebaseAuth.instance.signOut();
-                                          Navigator.pushNamed(
-                                              context, MainScreen.id);
-                                        },
-                                        child: const Padding(
-                                          padding: EdgeInsets.fromLTRB(
-                                              30, 10, 0, 10),
-                                          child: Icon(
-                                            Icons.logout,
-                                            color: mainAppColor,
+                                    const SizedBox(
+                                      height: 15,
+                                    ),
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          ' ${userData['email'] ?? ''} ',
+                                          style: const TextStyle(
+                                            color: Colors.black,
+                                            decoration: TextDecoration.none,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16.0,
                                           ),
+                                        ),
+                                        Material(
+                                          type: MaterialType.transparency,
+                                          child: Ink(
+                                            child: InkWell(
+                                              borderRadius:
+                                                  BorderRadius.circular(500.0),
+                                              onTap: () async {
+                                                await FirebaseAuth.instance
+                                                    .signOut();
+                                                Navigator.pushNamed(
+                                                    context, MainScreen.id);
+                                              },
+                                              child: const Padding(
+                                                padding: EdgeInsets.fromLTRB(
+                                                    30, 10, 0, 10),
+                                                child: Icon(
+                                                  Icons.logout,
+                                                  color: mainAppColor,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 25,
+                                    ),
+                                    Center(
+                                      child: CupComponent(
+                                        cupCount: cupCount.toDouble() ?? 0,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 20.0, bottom: 35.0),
+                                      child: Center(
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            TextRow(
+                                              title: "Reward drink",
+                                              imagePath: 'images/paper-cup.png',
+                                              titleResult:
+                                                  '${rewards_cup_in_view ?? '0'} ',
+                                            ),
+                                            TextRow(
+                                              title: "Star balance",
+                                              titleResult:
+                                                  ' ${stars_in_view ?? '0'} ',
+                                              imagePath: 'images/star.png',
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 25,
-                              ),
-                              Center(
-                                child: CupComponent(
-                                  cupCount: cupCount.toDouble() ?? 0,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 20.0, bottom: 35.0),
-                                child: Center(
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      TextRow(
-                                        title: "Reward drink",
-                                        imagePath: 'images/paper-cup.png',
-                                        titleResult:
-                                            '${rewards_cup_in_view?? '0'} ',
+                                    Center(
+                                      child: RoundedButton(
+                                        borderRadius: 10.0,
+                                        textBtn: 'SCAN QR',
+                                        onPress: () {
+                                          String stars =
+                                              ' ${stars_in_view ?? '0'} ';
+                                          String cups =
+                                              '${rewards_cup_in_view ?? '0'} ';
+                                          _showFullModal(
+                                              context, qrData, stars, cups);
+                                        },
                                       ),
-                                      TextRow(
-                                        title: "Star balance",
-                                        titleResult:
-                                            ' ${stars_in_view ?? '0'} ',
-                                        imagePath: 'images/star.png',
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 20.0, bottom: 20.0),
+                                      child: TextRow(
+                                        title: "Whirl",
+                                        titleResult: '${whirls_number ?? '0'} ',
+                                        imagePath: 'images/coffee-bag.png',
                                       ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Center(
-                                child: RoundedButton(
-                                  borderRadius: 10.0,
-                                  textBtn: 'SCAN QR',
-                                  onPress: () {
-                                    String stars =
-                                        ' ${stars_in_view ?? '0'} ';
-                                    String cups =
-                                        '${rewards_cup_in_view ?? '0'} ';
-                                    _showFullModal(
-                                        context, qrData, stars, cups);
-                                  },
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 20.0, bottom: 20.0),
-                                child: TextRow(
-                                  title: "Whirl",
-                                  titleResult:
-                                      '${whirls_number ?? '0'} ',
-                                  imagePath: 'images/coffee-bag.png',
-                                ),
-                              ),
-                              SizedBox(
-                                width: double.infinity,
-                                child: WhirlCount(whirlsNum: whirlCount),
-                              ),
-                            ],
-                          ),
+                                    ),
+                                    SizedBox(
+                                      width: double.infinity,
+                                      child: WhirlCount(whirlsNum: whirlCount),
+                                    ),
+                                  ],
+                                );
+                              }),
                         ),
                       ),
                     ),
