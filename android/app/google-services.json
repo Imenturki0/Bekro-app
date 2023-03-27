@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "331080468510",
+    "firebase_url": "https://bekron-app-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "bekron-app",
+    "storage_bucket": "bekron-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:331080468510:android:bd2ed076aaf6101c6cc60f",
+        "android_client_info": {
+          "package_name": "com.example.bekron_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "331080468510-i04ua1upqhig3kb3tf61a8c8sdp0ali5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnIxHkqTJysHlOSYTeBRwRYpxwiZJLxBM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "331080468510-i04ua1upqhig3kb3tf61a8c8sdp0ali5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "331080468510-8hd3oktr3abj427srte9c80442s7iq30.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.bekronApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:331080468510:android:31d8bdc512b3ee126cc60f",
+        "android_client_info": {
+          "package_name": "com.rasha.flat_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "331080468510-i04ua1upqhig3kb3tf61a8c8sdp0ali5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnIxHkqTJysHlOSYTeBRwRYpxwiZJLxBM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "331080468510-i04ua1upqhig3kb3tf61a8c8sdp0ali5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "331080468510-8hd3oktr3abj427srte9c80442s7iq30.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.bekronApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
